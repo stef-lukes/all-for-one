@@ -2,7 +2,7 @@
 //@route GET api/users
 //@access Private
 
-const getUsers = (req, res) => {
+const getUsers = async (req, res) => {
   res.status(200).json({ message: "Get users" });
 };
 
@@ -10,20 +10,24 @@ const getUsers = (req, res) => {
 //@route POST api/users
 //@access Private
 
-const setUser = (req, res) => {
+const setUser = async (req, res) => {
+  if (!req.body.text) {
+    res.status(400);
+    throw new Error("Please set a text field");
+  }
   res.status(201).json({ message: "Set users" });
 };
 
 //@desc Update user
-//@route PUT api/users
+//@route PUT api/users/:user_id
 //@access Private
 
-const updateUser = (req, res) => {
+const updateUser = async (req, res) => {
   res.status(200).json({ message: `Update user ${req.params.user_id}` });
 };
 
 //@desc Delete user
-//@route DELETE api/users
+//@route DELETE api/users/:user_id
 //@access Private
 
 const deleteUser = (req, res) => {
