@@ -1,7 +1,7 @@
 {
-  "name": "mern-tutorial",
+  "name": "all-for-one",
   "version": "1.0.0",
-  "description": "Learn MERN Stack tutorial: Goal-setter app. Traversy Media",
+  "description": "A social hub for dementia sufferers and their carers",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
