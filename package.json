@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node sever/server.js",
-    "server": "nodemon server/server.js"
+    "server": "nodemon server/server.js",
+    "client": "npm start --prefix client/all-for-one-fe"
   },
   "author": "Stefan Lukes",
   "license": "ISC",
