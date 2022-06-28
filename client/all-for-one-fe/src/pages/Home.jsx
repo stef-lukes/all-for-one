@@ -4,7 +4,7 @@ const Home = () => {
   return (
     <>
       <Header />
-      <h1>
+      <h1 className="page-msg">
         Welcome to all for one, a social hub for sufferers of dementia and their
         carers
       </h1>
