@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 
 const dailyLogSchema = mongoose.Schema(
   {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
     activityName: {
       type: String,
       required: [true, "Add activity name"],

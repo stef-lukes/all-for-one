@@ -1,3 +1,5 @@
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
 const Users = require("../models/userModel");
 
@@ -11,11 +13,11 @@ const getUsers = asyncHandler(async (req, res) => {
 
 //@desc Set User
 //@route POST api/users
-//@access Private
+//@access Public
 const setUser = asyncHandler(async (req, res) => {
-  if (!req.body.username) {
+  if (!req.body.username || !req.body.email || !req.body.password) {
     res.status(400);
-    throw new Error("Please set a username");
+    throw new Error("Please complete all fields");
   }
   const users = await Users.create({
     name: req.body.name,
@@ -65,4 +67,25 @@ const deleteUser = asyncHandler(async (req, res) => {
   res.status(200).json(`User ${user.username} deleted`);
 });
 
-module.exports = { getUsers, setUser, updateUser, deleteUser };
+//@desc Authenticate a user
+//@route POST api/users/login
+//@access Public
+const loginUser = asyncHandler(async (req, res) => {
+  res.json({ msg: "Login user" });
+});
+
+//@desc Get user data
+//@route POST api/users/me
+//@access Public
+const getMe = asyncHandler(async (req, res) => {
+  res.json({ msg: "User data display" });
+});
+
+module.exports = {
+  getUsers,
+  setUser,
+  updateUser,
+  deleteUser,
+  loginUser,
+  getMe,
+};
