@@ -22,10 +22,17 @@ const Login = () => {
     event.preventDefault();
     setFormErrors(validate(formData));
     setIsSubmit(true);
+    // if (Object.keys(formErrors).length === 0 && isSubmit) {
+    //   navigate("/dashboard");
+    // }
+  };
+
+  useEffect(() => {
+    console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       navigate("/dashboard");
     }
-  };
+  }, [formErrors]);
 
   const validate = (values) => {
     const errors = {};
