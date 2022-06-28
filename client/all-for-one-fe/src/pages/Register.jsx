@@ -3,9 +3,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const EMAIL_REGEX =
-    /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
-  const NAME_REGEX = /^[A-Za-z]+$/;
+  // const EMAIL_REGEX =
+  //   /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+  // const NAME_REGEX = /^[A-Za-z]+$/;
 
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
