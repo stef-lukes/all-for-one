@@ -18,6 +18,7 @@ const setUser = asyncHandler(async (req, res) => {
     throw new Error("Please set a username");
   }
   const users = await Users.create({
+    name: req.body.name,
     username: req.body.username,
     email: req.body.email,
     password: req.body.password,
