@@ -13,34 +13,19 @@ const Login = () => {
   const [formErrors, setFormErrors] = useState({ initalValues });
   const [isSubmit, setIsSubmit] = useState(false);
 
-  // const { email, password } = formData;
-
-  const onChange = (e) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
-    console.log(formData);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    navigate("/dashboard");
     setFormErrors(validate(formData));
     setIsSubmit(true);
-  };
-
-  useEffect(() => {
-    console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(formData);
+      navigate("/dashboard");
     }
-  }, [formErrors]);
+  };
 
   const validate = (values) => {
     const errors = {};
@@ -65,14 +50,13 @@ const Login = () => {
       <form onSubmit={handleSubmit}>
         <label aria-label="email">
           <input
-            type="email"
             className="form-control"
             id="email"
             name="email"
             value={formData.email}
             placeholder="Enter your email"
             onChange={handleChange}
-            //required
+            onBlur={handleChange}
           />
           <p>{formErrors.email}</p>
         </label>
@@ -85,7 +69,7 @@ const Login = () => {
             value={formData.password}
             placeholder="Enter your password"
             onChange={handleChange}
-            //required
+            onBlur={handleChange}
           />
           <p>{formErrors.password}</p>
         </label>
