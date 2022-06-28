@@ -15,7 +15,7 @@ const getUsers = asyncHandler(async (req, res) => {
 const setUser = asyncHandler(async (req, res) => {
   if (!req.body.username) {
     res.status(400);
-    throw new Error("Please set a text field");
+    throw new Error("Please set a username");
   }
   const users = await Users.create({
     username: req.body.username,
