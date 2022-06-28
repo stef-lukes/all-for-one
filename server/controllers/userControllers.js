@@ -15,21 +15,40 @@ const getUsers = asyncHandler(async (req, res) => {
 //@route POST api/users
 //@access Public
 const setUser = asyncHandler(async (req, res) => {
-  if (!req.body.username || !req.body.email || !req.body.password) {
+  const { username, email, password } = req.body;
+  if (!username || !email || !password) {
     res.status(400);
     throw new Error("Please complete all fields");
   }
-  const users = await Users.create({
+
+  const userExists = await Users.findOne({ email });
+  if (userExists) {
+    res.status(400);
+    throw new Error("Email already registered");
+  }
+
+  //Hash Password
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+  //Create User
+  const user = await Users.create({
     name: req.body.name,
-    username: req.body.username,
-    email: req.body.email,
-    password: req.body.password,
+    username: username,
+    email: email,
+    password: hashedPassword,
     isAdmin: req.body.isAdmin,
     isPrincipal: req.body.isPrincipal,
     relationship: req.body.relationship,
     avatarUrl: req.body.avatarUrl,
+    token: generateToken(user._id),
   });
-  res.status(201).json(users);
+  if (user) {
+    res.status(201).json(user);
+  } else {
+    res.status(400);
+    throw new Error("Invalid data");
+  }
 });
 
 //@desc Update user
@@ -71,15 +90,34 @@ const deleteUser = asyncHandler(async (req, res) => {
 //@route POST api/users/login
 //@access Public
 const loginUser = asyncHandler(async (req, res) => {
-  res.json({ msg: "Login user" });
+  const { email, password } = req.body;
+
+  const user = await Users.findOne({ email });
+  if (user && (await bcrypt.compare(password, user.password))) {
+    res.json({ user, token: generateToken(user._id) });
+  } else {
+    res.status(400);
+    throw new Error("Invalid credentials");
+  }
 });
 
 //@desc Get user data
 //@route POST api/users/me
 //@access Public
 const getMe = asyncHandler(async (req, res) => {
-  res.json({ msg: "User data display" });
+  const { _id, name, email, username, isAdmin, isPrincipal } =
+    await Users.findById(req.user.id);
+  res
+    .status(200)
+    .json({ id: _id, name, email, username, isAdmin, isPrincipal });
 });
+
+//Generate JWT
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: "15d",
+  });
+};
 
 module.exports = {
   getUsers,
