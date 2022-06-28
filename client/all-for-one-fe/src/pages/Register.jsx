@@ -1,7 +1,9 @@
 import Header from "../components/Header";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     name: "",
@@ -18,11 +20,16 @@ const Register = () => {
     }));
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    navigate("/dashboard");
+  };
+
   return (
     <>
       <Header />
       <h1>Register</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           type="email"
           className="form-control"
@@ -31,6 +38,7 @@ const Register = () => {
           value={email}
           placeholder="Enter your Email"
           onChange={onChange}
+          required
         />
         <input
           type="name"
@@ -40,6 +48,7 @@ const Register = () => {
           value={name}
           placeholder="Enter your Name"
           onChange={onChange}
+          required
         />
         <input
           type="password"
@@ -49,6 +58,7 @@ const Register = () => {
           value={password}
           placeholder="Enter your Password"
           onChange={onChange}
+          required
         />
         <input
           type="password"
@@ -58,6 +68,7 @@ const Register = () => {
           value={passwordConfirm}
           placeholder="Confirm your Password"
           onChange={onChange}
+          required
         />
         <button>Create My Account</button>
       </form>
