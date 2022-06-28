@@ -28,26 +28,31 @@ const Login = () => {
       <Header />
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          className="form-control"
-          id="email"
-          name="email"
-          value={email}
-          placeholder="Enter your email"
-          onChange={onChange}
-          required
-        />
-        <input
-          type="password"
-          className="form-control"
-          id="password"
-          name="password"
-          value={password}
-          placeholder="Enter your password"
-          onChange={onChange}
-          required
-        />
+        <label aria-label="email">
+          <input
+            type="email"
+            className="form-control"
+            id="email"
+            name="email"
+            value={email}
+            placeholder="Enter your email"
+            onChange={onChange}
+            required
+          />
+        </label>
+        <label aria-label="password">
+          <input
+            type="password"
+            className="form-control"
+            id="password"
+            name="password"
+            value={password}
+            placeholder="Enter your password"
+            onChange={onChange}
+            required
+          />
+        </label>
+
         <button>Go</button>
       </form>
     </>
