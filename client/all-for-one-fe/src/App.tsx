@@ -9,7 +9,6 @@ function App() {
     <>
       <Router>
         <div className="App">
-          {/* <Onboarding /> */}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
