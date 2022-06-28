@@ -3,6 +3,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const EMAIL_REGEX =
+    /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+  const NAME_REGEX = /^[A-Za-z]+$/;
+
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -20,20 +24,33 @@ const Register = () => {
     }));
   };
 
+  console.log(formData);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     navigate("/dashboard");
   };
 
+  // handleValidate function:
+  // blur event
+  // match input value to regex || if required and not there
+  // if not error style
+  // if yes then success style
+
+  // err msgs:
+  // if !name then name is required
+  // if invalid then input is invalid msg
+  // if password does not match then msg
+
   return (
     <>
       <Header />
       <h1>Register</h1>
+      {/* hidden error msg */}
       <form onSubmit={handleSubmit}>
         <label aria-label="Email">
           <input
             type="email"
-            className="form-control"
             id="email"
             name="email"
             value={email}
@@ -45,7 +62,6 @@ const Register = () => {
         <label aria-label="Password">
           <input
             type="name"
-            className="form-control"
             id="name"
             name="name"
             value={name}
@@ -57,7 +73,6 @@ const Register = () => {
         <label aria-label="password">
           <input
             type="password"
-            className="form-control"
             id="password"
             name="password"
             value={password}
@@ -69,7 +84,6 @@ const Register = () => {
         <label aria-label="Confirm password">
           <input
             type="password"
-            className="form-control"
             id="passwordConfirm"
             name="passwordConfirm"
             value={passwordConfirm}
