@@ -4,8 +4,8 @@
   "description": "A social hub for dementia sufferers and their carers",
   "main": "server.js",
   "scripts": {
-    "test": "set NODE_ENV=test && mocha server/test/users.test.js --timeout 10000",
-    "start": "set NODE_ENV=development && node server/server.js",
+    "test": "mocha server/test/users.test.js --timeout 10000",
+    "start": "node server/server.js",
     "server": "nodemon server/server.js"
   },
   "author": "Stefan Lukes",

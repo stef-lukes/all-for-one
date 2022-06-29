@@ -1,12 +1,14 @@
 const mongoose = require("mongoose");
+const ENV = process.env.NODE_ENV || "development";
+require("dotenv").config({
+  path: `${__dirname}/../../.env.${ENV}`,
+});
+
+//const database = process.env.MONGO_URI;
 
 const connectDB = async () => {
-  let database;
-  process.env.NODE_ENV === "development"
-    ? (database = process.env.MONGO_URI)
-    : (database = process.env.MONGO_URI_TEST);
   try {
-    const conn = await mongoose.connect(database);
+    const conn = await mongoose.connect(process.env.MONGO_URI);
     console.log(`MongoDB Connected:${conn.connection.host}`.cyan.underline);
   } catch (error) {
     console.log(error);

@@ -5,7 +5,6 @@ import { createUser } from "../utils/api";
 
 const Register = () => {
   const navigate = useNavigate();
-  // const NAME_REGEX = /^[A-Za-z]+$/;
 
   const initalValues = {
     email: "",
