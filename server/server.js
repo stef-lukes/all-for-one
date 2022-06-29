@@ -19,3 +19,5 @@ app.use("/api/dailyLog", require("./routes/dailyLogRoutes"));
 app.use(errorHandler);
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
+
+module.exports = app;
