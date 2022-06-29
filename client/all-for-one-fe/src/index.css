@@ -16,28 +16,30 @@ body {
 }
 
 .page-msg {
-  margin-top: 50px;
-  font-size: 20px;
+  font-size: 30px;
   color: #17293a;
+  font-weight: 300;
+  text-align: center;
+  width: 330px;
+  margin: 50px auto;
 }
 
 #onboarding-links {
   display: flex;
   width: 80%;
-  justify-content: space-evenly;
+  justify-content: center;
   margin: auto;
-  position: absolute;
-  bottom: 100px;
-  left: 10%;
 }
 
 .onboarding-link {
   width: 100px;
   background-color: #17293a;
   color: white;
+  font-weight: 700;
   text-decoration: none;
-  padding: 15px 10px;
-  border-radius: 20px;
+  padding: 10px 5px;
+  border-radius: 10px;
+  margin: 0 10px;
 }
 
 form {
@@ -57,4 +59,18 @@ form input {
   border-radius: 5px;
   border: 2px lightgray solid;
   width: 95%;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 100%;
+  background: linear-gradient(
+    0deg,
+    rgba(255, 160, 62, 1) 0%,
+    rgba(253, 78, 116, 1) 100%
+  );
+  padding: 5px;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.236);
 }
