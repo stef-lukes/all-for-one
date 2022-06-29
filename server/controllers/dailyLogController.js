@@ -1,10 +1,12 @@
 const asyncHandler = require("express-async-handler");
 const DailyLog = require("../models/dailyLogModel");
+const User = require("../models/userModel");
 
 //@desc Get dailyLog
 //@route GET api/dailyLog
 //@access Private
 const getDailyLog = asyncHandler(async (req, res) => {
+  //use Hub Code .find({hubId: req.hubId}) when hubIds exist
   const dailyLog = await DailyLog.find();
   res.status(200).json(dailyLog);
 });
@@ -18,6 +20,7 @@ const setDailyLogEntry = asyncHandler(async (req, res) => {
     throw new Error("Please set a activity name");
   }
   const dailyLogEntry = await DailyLog.create({
+    user: req.user.id,
     activityName: req.body.activityName,
     bodyText: req.body.bodyText,
     categories: req.body.categories,
@@ -39,6 +42,12 @@ const updateDailyLogEntry = asyncHandler(async (req, res) => {
     throw new Error("Activity not found");
   }
 
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    res.status(401);
+    throw new Error("User not found");
+  }
+  //Add error handling when hubcodes don't match entry and user
   const updatedDailyLogEntry = await DailyLog.findByIdAndUpdate(
     req.params.dailyLogEntry_id,
     req.body,
@@ -56,6 +65,12 @@ const deleteDailyLogEntry = asyncHandler(async (req, res) => {
   const dailyLogEntry = await DailyLog.findByIdAndRemove(
     req.params.dailyLogEntry_id
   );
+
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    res.status(401);
+    throw new Error("User not found");
+  }
 
   if (!dailyLogEntry) {
     res.status(400);
