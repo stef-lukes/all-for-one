@@ -41,8 +41,10 @@ const setUser = asyncHandler(async (req, res) => {
     isPrincipal: req.body.isPrincipal,
     relationship: req.body.relationship,
     avatarUrl: req.body.avatarUrl,
-    token: generateToken(user._id),
   });
+
+  user.token = generateToken(user._id);
+
   if (user) {
     res.status(201).json(user);
   } else {
