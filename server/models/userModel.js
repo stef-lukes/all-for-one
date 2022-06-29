@@ -30,7 +30,7 @@ const userSchema = mongoose.Schema(
     relationship: {
       type: String,
       required: [
-        true,
+        false,
         "What's this user's relationship to the Principal user?",
       ],
     },

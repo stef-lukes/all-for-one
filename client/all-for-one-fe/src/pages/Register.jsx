@@ -1,6 +1,7 @@
 import Header from "../components/Header";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { createUser } from "../utils/api";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -9,28 +10,31 @@ const Register = () => {
   const initalValues = {
     email: "",
     name: "",
+    username: "",
     password: "",
     passwordConfirm: "",
+    isAdmin: true,
+    isPrincipal: false,
   };
 
   const [formData, setFormData] = useState(initalValues);
   const [formErrors, setFormErrors] = useState({ initalValues });
-  const [isSubmit, setIsSubmit] = useState(false);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
-    console.log(formData);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setFormErrors(validate(formData));
-    setIsSubmit(true);
   };
 
   useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
+    if (Object.keys(formErrors).length === 0) {
+      createUser(formData).then((newUser) => {
+        console.log(newUser);
+      });
       navigate("/dashboard");
     }
   }, [formErrors]);
@@ -49,6 +53,9 @@ const Register = () => {
       errors.name = "Your name is required.";
     } else if (!regexName.test(values.name)) {
       errors.name = "Name cannot contain any numbers or special characters.";
+    }
+    if (!values.username) {
+      errors.name = "Username is required.";
     }
     if (!values.password) {
       errors.password = "Your password is required.";
@@ -88,6 +95,18 @@ const Register = () => {
             onBlur={handleChange}
           />
           <p>{formErrors.name}</p>
+        </label>
+        <label aria-label="Password">
+          <input
+            type="username"
+            id="username"
+            name="username"
+            value={formData.username}
+            placeholder="Enter your Username"
+            onChange={handleChange}
+            onBlur={handleChange}
+          />
+          <p>{formErrors.username}</p>
         </label>
         <label aria-label="password">
           <input
