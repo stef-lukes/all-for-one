@@ -4,10 +4,9 @@
   "description": "A social hub for dementia sufferers and their carers",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/server.js",
+    "test": "set NODE_ENV=test && mocha server/test/users.test.js --timeout 10000",
+    "start": "set NODE_ENV=development && node server/server.js",
     "server": "nodemon server/server.js"
-    
   },
   "author": "Stefan Lukes",
   "license": "ISC",
@@ -22,6 +21,9 @@
     "mongoose": "^6.4.0"
   },
   "devDependencies": {
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
+    "mocha": "^10.0.0",
     "nodemon": "^1.3.3"
   }
 }
