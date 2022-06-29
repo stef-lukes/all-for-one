@@ -20,19 +20,16 @@ const Register = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
+    console.log(formData);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setFormErrors(validate(formData));
     setIsSubmit(true);
-    // if (Object.keys(formErrors).length === 0 && isSubmit) {
-    //   navigate("/dashboard");
-    // }
   };
 
   useEffect(() => {
-    console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       navigate("/dashboard");
     }
@@ -42,7 +39,7 @@ const Register = () => {
     const errors = {};
     const regexEmail =
       /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
-    const regexName = /^[A-Za-z]+$/;
+    const regexName = /^[a-zA-Z\s]*$/;
     if (!values.email) {
       errors.email = "Your email is required.";
     } else if (!regexEmail.test(values.email)) {
@@ -68,7 +65,6 @@ const Register = () => {
     <>
       <Header />
       <h1>Register</h1>
-      {/* hidden error msg */}
       <form onSubmit={handleSubmit}>
         <label aria-label="Email">
           <input
