@@ -7,10 +7,12 @@ const {
   deleteDailyLogEntry,
 } = require("../controllers/dailyLogController");
 
-router.route("/").get(getDailyLog).post(setDailyLogEntry);
+const { protect } = require("../middleware/authMiddleware");
+
+router.route("/").get(protect, getDailyLog).post(protect, setDailyLogEntry);
 router
   .route("/:dailyLogEntry_id")
-  .put(updateDailyLogEntry)
-  .delete(deleteDailyLogEntry);
+  .put(protect, updateDailyLogEntry)
+  .delete(protect, deleteDailyLogEntry);
 
 module.exports = router;
