@@ -11,7 +11,7 @@ const bcrypt = require("bcryptjs");
 chai.use(chaiHttp);
 
 describe("Users HTTP Requests", () => {
-  beforeEach((done) => {
+  before((done) => {
     Users.deleteMany({}, (err) => {
       done();
     });
@@ -20,6 +20,15 @@ describe("Users HTTP Requests", () => {
   describe("/api/users", () => {
     const testUser1 = {
       email: "gracefaz@gmail.com",
+      name: "grace",
+      username: "grace27",
+      password: "hellograce",
+      passwordConfirm: "hellograce",
+      isAdmin: true,
+      isPrincipal: false,
+    };
+    const testUser2 = {
+      email: "stefanlukes@gmail.com",
       name: "grace",
       username: "grace27",
       password: "hellograce",
@@ -49,47 +58,28 @@ describe("Users HTTP Requests", () => {
           done();
         });
     });
-    it("should hash paswword", (done) => {
+    it("should hash paswwordbut return same email", (done) => {
       chai
         .request(app)
         .post("/api/users")
         .type("form")
-        .send(testUser1)
+        .send(testUser2)
         .end((err, res) => {
           res.should.have.status(200);
-          res.body.password.should.not.eql(testUser1.password);
+          res.body.password.should.not.eql(testUser2.password);
+          res.body.email.should.eql(testUser2.email);
           done();
         });
     });
-    it("response object values should match request object values", (done) => {
-      chai
-        .request(app)
-        .post("/api/users")
-        .type("form")
-        .send(testUser1)
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.email.should.eql(testUser1.email);
-          done();
-        });
-    });
-
     it("should respond with 400 if user already exists", (done) => {
       chai
         .request(app)
         .post("/api/users")
         .send(testUser1)
-        .end()
-        .then(
-          chai
-            .request(app)
-            .post("/api/users")
-            .send(testUser1)
-            .end((err, res) => {
-              console.log(res.body);
-              res.should.have.status(400);
-            })
-        );
+        .end((err, res) => {
+          res.should.have.status(400);
+          done();
+        });
     });
 
     it("GET: should return an array of user objects", (done) => {
