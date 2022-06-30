@@ -23,6 +23,7 @@ const Login = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setFormErrors(validate(formData));
+    console.log(formData);
   };
 
   useEffect(() => {
