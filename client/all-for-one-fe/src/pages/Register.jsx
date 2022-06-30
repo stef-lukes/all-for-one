@@ -1,11 +1,12 @@
 import Header from "../components/Header";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUser } from "../utils/api";
+import AuthContext from "../contexts/AuthProvider";
 
 const Register = () => {
+  const { auth, setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
-  // const NAME_REGEX = /^[A-Za-z]+$/;
 
   const initalValues = {
     email: "",
@@ -33,7 +34,7 @@ const Register = () => {
   useEffect(() => {
     if (Object.keys(formErrors).length === 0) {
       createUser(formData).then((newUser) => {
-        console.log(newUser);
+        setAuth(newUser);
       });
       navigate("/dashboard");
     }
