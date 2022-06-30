@@ -34,9 +34,7 @@ const Register = () => {
   useEffect(() => {
     if (Object.keys(formErrors).length === 0) {
       createUser(formData).then((newUser) => {
-        console.log(newUser.name);
         setAuth(newUser);
-        console.log(setAuth(newUser), "<--");
       });
       navigate("/dashboard");
     }

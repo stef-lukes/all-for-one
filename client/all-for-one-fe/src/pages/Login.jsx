@@ -2,10 +2,10 @@ import Header from "../components/Header";
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/AuthProvider";
+import { loginUser } from "../utils/api";
 
 const Login = () => {
-  const { auth } = useContext(AuthContext);
-
+  const { auth, setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
   const initalValues = {
     email: "",
@@ -13,7 +13,7 @@ const Login = () => {
   };
 
   const [formData, setFormData] = useState(initalValues);
-  const [formErrors, setFormErrors] = useState({ initalValues });
+  const [formErrors, setFormErrors] = useState({});
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -22,6 +22,12 @@ const Login = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    loginUser(formData).then((loggedInUser) => {
+      setAuth(loggedInUser);
+      console.log(loggedInUser, "in login");
+
+      return loggedInUser;
+    });
     setFormErrors(validate(formData));
   };
 
@@ -39,12 +45,12 @@ const Login = () => {
       errors.email = "Your email is required.";
     } else if (!regexEmail.test(values.email)) {
       errors.email = "Not a valid email address.";
-    } else if (values.email !== auth.email) {
+    } else if (values.email !== formData.email) {
       errors.badLogin = "Invalid username or password";
     }
     if (!values.password) {
       errors.password = "Your password is required.";
-    } else if (values.password !== auth.password) {
+    } else if (values.password !== formData.password) {
       errors.badLogin = "Invalid username or password";
     }
     return errors;
