@@ -25,3 +25,53 @@ export const createUser = ({
       return newUser.data;
     });
 };
+
+export const loginUser = ({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}) => {
+  return allForOneApi
+    .post("/users/login", { email, password })
+    .then((loggedInUser) => {
+      console.log(loggedInUser, "in api");
+      return loggedInUser.data.user;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const createDailyLogEntry = ({
+  user,
+  activityName,
+  bodyText,
+  categories,
+  colour,
+  order,
+  isRecurring,
+}: {
+  user: string;
+  activityName: string;
+  bodyText: string;
+  categories: string;
+  colour: string;
+  order: number;
+  isRecurring: boolean;
+}) => {
+  return allForOneApi
+    .post("/dailyLog", {
+      user,
+      activityName,
+      bodyText,
+      categories,
+      colour,
+      order,
+      isRecurring,
+    })
+    .then((newLogEntry) => {
+      return newLogEntry.data;
+    });
+};
