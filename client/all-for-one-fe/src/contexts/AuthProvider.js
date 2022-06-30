@@ -4,11 +4,11 @@ const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({
-    email: "jacknicholson@theoverlook.com",
-    password: "heresjohnny",
-    name: "Jack",
-    avatar_url:
-      "https://i.pinimg.com/originals/f5/2b/dc/f52bdc278c800b500bc42d5d8f63af93.jpg",
+    email: "",
+    name: "",
+    username: "",
+    password: "",
+    passwordConfirm: "",
   });
 
   return (
