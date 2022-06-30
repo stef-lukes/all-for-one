@@ -8,8 +8,8 @@ const Dashboard = () => {
     <>
       <Header />
       <h1>Dashboard</h1>
-      <img className="avatar" src={auth.avatar_url} alt="" />
-      <p>Logged in as {auth.name}</p>
+      // <img className="avatar" src={auth.avatar_url} alt="" />
+      <p>Hello, {auth.name}!</p>
     </>
   );
 };
