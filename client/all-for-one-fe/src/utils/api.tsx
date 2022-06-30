@@ -22,6 +22,6 @@ export const createUser = ({
   return allForOneApi
     .post("/users", { email, name, username, password, isAdmin, isPrincipal })
     .then((newUser) => {
-      return newUser;
+      return newUser.data;
     });
 };
