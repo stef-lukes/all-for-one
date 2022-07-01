@@ -36,8 +36,7 @@ export const loginUser = ({
   return allForOneApi
     .post("/users/login", { email, password })
     .then((loggedInUser) => {
-      console.log(loggedInUser, "in api");
-      return loggedInUser.data.user;
+      return loggedInUser.data
     })
     .catch((err) => {
       console.log(err);

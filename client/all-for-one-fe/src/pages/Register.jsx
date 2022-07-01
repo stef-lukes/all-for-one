@@ -2,10 +2,10 @@ import Header from "../components/Header";
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUser } from "../utils/api";
-import AuthContext from "../contexts/AuthProvider";
+import {UserContext }from "../contexts/AuthProvider";
 
 const Register = () => {
-  const { auth, setAuth } = useContext(AuthContext);
+  const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const initalValues = {
@@ -22,23 +22,27 @@ const Register = () => {
   const [formErrors, setFormErrors] = useState({ initalValues });
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    const { id, value } = event.target;
+    setFormData((prevData) => Object.assign({},prevData, {[id]: value }));
   };
 
+  const handleBlur = (event) => {
+    const {id, value} = event.target;
+    setFormData((prevData) => Object.assign({}, prevData, {[id]: value }))
+    setFormErrors(validate(formData));
+  }
+  
   const handleSubmit = (event) => {
     event.preventDefault();
-    setFormErrors(validate(formData));
-  };
-
-  useEffect(() => {
     if (Object.keys(formErrors).length === 0) {
       createUser(formData).then((newUser) => {
-        setAuth(newUser);
-      });
-      navigate("/dashboard");
+        if (newUser) {
+          setUser(newUser);
+          navigate("/dashboard");
+        } 
+      })
     }
-  }, [formErrors]);
+  };
 
   const validate = (values) => {
     const errors = {};
@@ -77,11 +81,10 @@ const Register = () => {
         <label aria-label="Email">
           <input
             id="email"
-            name="email"
             value={formData.email}
             placeholder="Enter your Email"
             onChange={handleChange}
-            onBlur={handleChange}
+            onBlur={handleBlur}
           />
           <p>{formErrors.email}</p>
         </label>
@@ -89,11 +92,10 @@ const Register = () => {
           <input
             type="name"
             id="name"
-            name="name"
             value={formData.name}
             placeholder="Enter your Name"
             onChange={handleChange}
-            onBlur={handleChange}
+            onBlur={handleBlur}
           />
           <p>{formErrors.name}</p>
         </label>
@@ -101,11 +103,10 @@ const Register = () => {
           <input
             type="username"
             id="username"
-            name="username"
             value={formData.username}
             placeholder="Enter your Username"
             onChange={handleChange}
-            onBlur={handleChange}
+            onBlur={handleBlur}
           />
           <p>{formErrors.username}</p>
         </label>
@@ -113,11 +114,10 @@ const Register = () => {
           <input
             type="password"
             id="password"
-            name="password"
             value={formData.password}
             placeholder="Enter your Password"
             onChange={handleChange}
-            onBlur={handleChange}
+            onBlur={handleBlur}
           />
           <p>{formErrors.password}</p>
         </label>
@@ -125,11 +125,10 @@ const Register = () => {
           <input
             type="password"
             id="passwordConfirm"
-            name="passwordConfirm"
             value={formData.passwordConfirm}
             placeholder="Confirm your Password"
             onChange={handleChange}
-            onBlur={handleChange}
+            onBlur={handleBlur}
           />
           <p>{formErrors.passwordConfirm}</p>
         </label>

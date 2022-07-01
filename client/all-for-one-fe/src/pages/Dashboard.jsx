@@ -1,17 +1,18 @@
 import { useContext } from "react";
 import Header from "../components/Header";
-import AuthContext from "../contexts/AuthProvider";
+import {UserContext} from "../contexts/AuthProvider";
 import DailyLogEntry from "./DailyLogEntry";
 
 const Dashboard = () => {
-  const { auth } = useContext(AuthContext);
+  const { user } = useContext(UserContext);
+  console.log(user);
 
   return (
     <>
       <Header />
       <h1>Dashboard</h1>
-      <img className="avatar" src={auth.avatar_url} alt="" />
-      <p>Hello, {auth.name}!</p>
+      <img className="avatar" src={user.avatar_url} alt="" />
+      <p>Hello, {user.user.name}!</p>
       <DailyLogEntry />
       <button>Log Out</button>
     </>
