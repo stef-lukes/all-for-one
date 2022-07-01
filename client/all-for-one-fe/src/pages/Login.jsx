@@ -29,7 +29,6 @@ const Login = () => {
       return loggedInUser;
     });
     setFormErrors(validate(formData));
-    console.log(formData);
   };
 
   useEffect(() => {

@@ -13,6 +13,7 @@ const Dashboard = () => {
       <img className="avatar" src={auth.avatar_url} alt="" />
       <p>Hello, {auth.name}!</p>
       <DailyLogEntry />
+      <button>Log Out</button>
     </>
   );
 };
