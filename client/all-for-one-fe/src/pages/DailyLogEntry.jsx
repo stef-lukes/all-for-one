@@ -38,17 +38,6 @@ const DailyLogEntry = () => {
     <>
       <h1>Add an entry to your Daily Log</h1>
       <form onSubmit={handleSubmit}>
-        <label aria-label="user">
-          <input
-            id="user"
-            name="user"
-            type="text"
-            value={logEntryData.user}
-            placeholder="Enter user"
-            onChange={handleChange}
-            onBlur={handleChange}
-          />
-        </label>
         <label aria-label="activity name">
           <input
             id="activityName"
