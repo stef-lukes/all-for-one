@@ -42,8 +42,7 @@ const updateDailyLogEntry = asyncHandler(async (req, res) => {
     throw new Error("Activity not found");
   }
 
-  const user = await User.findById(req.user.id);
-  if (!user) {
+  if (!req.user) {
     res.status(401);
     throw new Error("User not found");
   }
@@ -66,8 +65,7 @@ const deleteDailyLogEntry = asyncHandler(async (req, res) => {
     req.params.dailyLogEntry_id
   );
 
-  const user = await User.findById(req.user.id);
-  if (!user) {
+  if (!req.user) {
     res.status(401);
     throw new Error("User not found");
   }
