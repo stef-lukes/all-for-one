@@ -1,35 +1,44 @@
 import Header from "../components/Header";
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../contexts/AuthProvider";
+import {UserContext} from "../contexts/AuthProvider";
+import { loginUser } from "../utils/api";
 
 const Login = () => {
-  const { auth } = useContext(AuthContext);
-
+  const { user , setUser } = useContext(UserContext);
   const navigate = useNavigate();
-  const initalValues = {
-    email: "",
-    password: "",
-  };
+  const initialValues= {email:"", password:""}
 
-  const [formData, setFormData] = useState(initalValues);
-  const [formErrors, setFormErrors] = useState({ initalValues });
+  const [formData, setFormData] = useState(initialValues);
+  const [formErrors, setFormErrors] = useState(initialValues);
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    const {id, value} = event.target;
+    setFormData((prevData) => Object.assign({}, prevData, {[id]: value }));
   };
+
+  const handleBlur = (event) => {
+    const {id, value} = event.target;
+    setFormData((prevData) => Object.assign({}, prevData, {[id]: value }))
+    setFormErrors(validate(formData));
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setFormErrors(validate(formData));
+      if (Object.keys(formErrors).length === 0) {
+        loginUser(formData).then((loggedInUser) => {
+          setUser(loggedInUser);
+        })
+    }
   };
-
+  
   useEffect(() => {
-    if (Object.keys(formErrors).length === 0) {
+    console.log(user)
+    if(user) {
       navigate("/dashboard");
     }
-  }, [formErrors]);
+  }, [navigate, user]);
+
 
   const validate = (values) => {
     const errors = {};
@@ -39,12 +48,12 @@ const Login = () => {
       errors.email = "Your email is required.";
     } else if (!regexEmail.test(values.email)) {
       errors.email = "Not a valid email address.";
-    } else if (values.email !== auth.email) {
+    } else if (values.email !== formData.email) {
       errors.badLogin = "Invalid username or password";
     }
     if (!values.password) {
       errors.password = "Your password is required.";
-    } else if (values.password !== auth.password) {
+    } else if (values.password !== formData.password) {
       errors.badLogin = "Invalid username or password";
     }
     return errors;
@@ -55,17 +64,16 @@ const Login = () => {
       <Header />
       <h1>Login</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form>
         <p>{formErrors.badLogin}</p>
         <label aria-label="email">
           <input
             className="form-control"
             id="email"
-            name="email"
             value={formData.email}
             placeholder="Enter your email"
             onChange={handleChange}
-            onBlur={handleChange}
+            onBlur={handleBlur}
           />
           <p>{formErrors.email}</p>
         </label>
@@ -74,16 +82,14 @@ const Login = () => {
             type="password"
             className="form-control"
             id="password"
-            name="password"
             value={formData.password}
             placeholder="Enter your password"
             onChange={handleChange}
-            onBlur={handleChange}
+            onBlur={handleBlur}
           />
           <p>{formErrors.password}</p>
         </label>
-
-        <button>Go</button>
+        <button onClick={(e) => {handleSubmit(e)}}>Go</button>
       </form>
     </>
   );
