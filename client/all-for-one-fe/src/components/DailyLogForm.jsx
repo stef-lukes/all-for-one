@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { createDailyLogEntry } from "../utils/api";
+import { UserContext } from "../contexts/AuthProvider";
 
 const DailyLogForm = () => {
-  const initalValues = {
+  const { user } = useContext(UserContext);
+
+  const initialValues = {
     user: "",
-    activityName: "",
-    bodyText: "",
+    title: "",
+    body: "",
     categories: "",
-    colour: "",
-    order: 1,
-    isRecurring: false,
   };
-  const [logEntryData, setLogEntryData] = useState(initalValues);
+  const [logEntryData, setLogEntryData] = useState(initialValues);
 
   // useEffect(() => {
   //   createDailyLogEntry(logEntryData).then((newEntry) => {
