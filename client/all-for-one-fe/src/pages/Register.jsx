@@ -2,7 +2,7 @@ import Header from "../components/Header";
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUser } from "../utils/api";
-import {UserContext }from "../contexts/AuthProvider";
+import { UserContext } from "../contexts/AuthProvider";
 
 const Register = () => {
   const { user, setUser } = useContext(UserContext);
@@ -23,15 +23,15 @@ const Register = () => {
 
   const handleChange = (event) => {
     const { id, value } = event.target;
-    setFormData((prevData) => Object.assign({},prevData, {[id]: value }));
+    setFormData((prevData) => Object.assign({}, prevData, { [id]: value }));
   };
 
   const handleBlur = (event) => {
-    const {id, value} = event.target;
-    setFormData((prevData) => Object.assign({}, prevData, {[id]: value }))
+    const { id, value } = event.target;
+    setFormData((prevData) => Object.assign({}, prevData, { [id]: value }));
     setFormErrors(validate(formData));
-  }
-  
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     if (Object.keys(formErrors).length === 0) {
@@ -39,8 +39,8 @@ const Register = () => {
         if (newUser) {
           setUser(newUser);
           navigate("/dashboard");
-        } 
-      })
+        }
+      });
     }
   };
 
