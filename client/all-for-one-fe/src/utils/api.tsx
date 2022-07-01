@@ -65,3 +65,9 @@ export const createDailyLogEntry = ({
       return newLogEntry.data;
     });
 };
+
+export const getDailyLog = () => {
+  return allForOneApi.get("/dailyLog").then((dailyLog) => {
+    return dailyLog.data;
+  });
+};
