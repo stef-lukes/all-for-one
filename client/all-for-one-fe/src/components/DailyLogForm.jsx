@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createDailyLogEntry } from "../utils/api";
 
-const DailyLogEntry = () => {
+const DailyLogForm = () => {
   const initalValues = {
     user: "",
     activityName: "",
@@ -110,4 +110,4 @@ const DailyLogEntry = () => {
   );
 };
 
-export default DailyLogEntry;
+export default DailyLogForm;

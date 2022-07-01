@@ -1,7 +1,8 @@
 import { useContext } from "react";
 import Header from "../components/Header";
-import {UserContext} from "../contexts/AuthProvider";
-import DailyLogEntry from "./DailyLogEntry";
+import Navbar from "../components/Navbar";
+import { UserContext } from "../contexts/AuthProvider";
+import DailyLog from "../components/DailyLog";
 
 const Dashboard = () => {
   const { user } = useContext(UserContext);
@@ -10,10 +11,11 @@ const Dashboard = () => {
   return (
     <>
       <Header />
+      <Navbar />
       <h1>Dashboard</h1>
       <img className="avatar" src={user.avatar_url} alt="" />
       <p>Hello, {user.user.name}!</p>
-      <DailyLogEntry />
+      <DailyLog />
       <button>Log Out</button>
     </>
   );
