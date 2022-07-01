@@ -13,16 +13,20 @@ const DailyLogEntry = () => {
   };
   const [logEntryData, setLogEntryData] = useState(initalValues);
 
-  useEffect(() => {
-    createDailyLogEntry(logEntryData).then((newEntry) => {
-      console.log(newEntry);
-      setLogEntryData(newEntry);
-      return newEntry;
-    });
-  });
+  // useEffect(() => {
+  //   createDailyLogEntry(logEntryData).then((newEntry) => {
+  //     console.log(newEntry);
+  //     setLogEntryData(newEntry);
+  //     return newEntry;
+  //   });
+  // });
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    createDailyLogEntry(logEntryData).then((newEntry) => {
+      setLogEntryData(newEntry);
+      console.log(logEntryData);
+    });
   };
 
   const handleChange = (event) => {
@@ -30,32 +34,73 @@ const DailyLogEntry = () => {
     setLogEntryData({ ...logEntryData, [name]: value });
   };
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   postCommentOnArticle(article_id, addedComment.body, user.username)
-  //     .then((postedComment) => {
-  //       setIsPosted(true);
-  //       setComments((currComments) => {
-  //         return [postedComment, ...currComments];
-  //       });
-  //     })
-  //     .catch((err) => {
-  //       setError(err.response.data);
-  //     });
-  //   setAddedComment({ body: "", username: "" });
-  // };
-
   return (
     <>
-      <h1>Add an entry to your daily Log</h1>
+      <h1>Add an entry to your Daily Log</h1>
       <form onSubmit={handleSubmit}>
-        <label aria-label="user">
+        <label aria-label="activity name">
           <input
-            id="user"
-            name="user"
+            id="activityName"
+            name="activityName"
             type="text"
-            value={logEntryData.user}
-            placeholder="Enter user"
+            value={logEntryData.activityName}
+            placeholder="Enter activity name"
+            onChange={handleChange}
+            onBlur={handleChange}
+          />
+        </label>
+        <label aria-label="body text">
+          <input
+            id="bodyText"
+            name="bodyText"
+            type="text"
+            value={logEntryData.bodyText}
+            placeholder="Enter activity details"
+            onChange={handleChange}
+            onBlur={handleChange}
+          />
+        </label>
+        <label aria-label="categories">
+          <input
+            id="categories"
+            name="categories"
+            type="text"
+            value={logEntryData.categories}
+            placeholder="Enter category"
+            onChange={handleChange}
+            onBlur={handleChange}
+          />
+        </label>
+        <label aria-label="colour">
+          <input
+            id="colour"
+            name="colour"
+            type="text"
+            value={logEntryData.colour}
+            placeholder="Enter colour"
+            onChange={handleChange}
+            onBlur={handleChange}
+          />
+        </label>
+        <label aria-label="order">
+          <input
+            id="order"
+            name="order"
+            type="text"
+            value={logEntryData.order}
+            placeholder="Order"
+            onChange={handleChange}
+            onBlur={handleChange}
+          />
+        </label>
+        <label aria-label="is recurring">
+          <input
+            id="isRecurring"
+            name="isRecurring"
+            type="text"
+            value={logEntryData.isRecurring}
+            placeholder="Is Recurring?"
+            onChange={handleChange}
             onBlur={handleChange}
           />
         </label>

@@ -14,6 +14,7 @@ const Dashboard = () => {
       <img className="avatar" src={user.avatar_url} alt="" />
       <p>Hello, {user.user.name}!</p>
       <DailyLogEntry />
+      <button>Log Out</button>
     </>
   );
 };
