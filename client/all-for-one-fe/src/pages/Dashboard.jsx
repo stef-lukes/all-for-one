@@ -6,7 +6,6 @@ import DailyLog from "../components/DailyLog";
 
 const Dashboard = () => {
   const { user } = useContext(UserContext);
-  console.log(user);
 
   return (
     <>

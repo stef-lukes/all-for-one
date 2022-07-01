@@ -20,9 +20,9 @@ const setDailyLogEntry = asyncHandler(async (req, res) => {
     throw new Error("Please set a activity name");
   }
   const dailyLogEntry = await DailyLog.create({
-    user: req.user.id,
-    title: req.body.activityName,
-    body: req.body.bodyText,
+    user: req.body.user,
+    title: req.body.title,
+    body: req.body.body,
     categories: req.body.categories,
   });
   res.status(201).json(dailyLogEntry);

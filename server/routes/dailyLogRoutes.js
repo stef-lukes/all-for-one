@@ -9,7 +9,7 @@ const {
 
 const { protect } = require("../middleware/authMiddleware");
 
-router.route("/").get(protect, getDailyLog).post(protect, setDailyLogEntry);
+router.route("/").get(getDailyLog).post(setDailyLogEntry);
 router
   .route("/:dailyLogEntry_id")
   .put(protect, updateDailyLogEntry)
