@@ -15,18 +15,15 @@ const getDailyLog = asyncHandler(async (req, res) => {
 //@route POST api/dailyLog
 //@access Private
 const setDailyLogEntry = asyncHandler(async (req, res) => {
-  if (!req.body.activityName) {
+  if (!req.body.title) {
     res.status(400);
     throw new Error("Please set a activity name");
   }
   const dailyLogEntry = await DailyLog.create({
     user: req.user.id,
-    activityName: req.body.activityName,
-    bodyText: req.body.bodyText,
+    title: req.body.activityName,
+    body: req.body.bodyText,
     categories: req.body.categories,
-    colour: req.body.colour,
-    order: req.body.order,
-    isRecurring: req.body.isRecurring,
   });
   res.status(201).json(dailyLogEntry);
 });

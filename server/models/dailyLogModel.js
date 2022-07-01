@@ -7,17 +7,17 @@ const dailyLogSchema = mongoose.Schema(
       required: true,
       ref: "User",
     },
-    activityName: {
+    title: {
       type: String,
-      required: [true, "Add activity name"],
+      required: [true, "Post title"],
     },
-    bodyText: {
+    body: {
       type: String,
       required: [true, "Add bodyText"],
     },
     categories: {
       type: [String],
-      required: [true, ["", "", ""]],
+      required: [false, ["", "", ""]],
     },
     colour: {
       type: String,
@@ -25,11 +25,11 @@ const dailyLogSchema = mongoose.Schema(
     },
     order: {
       type: Number,
-      required: true,
+      required: false,
     },
     isRecurring: {
       type: Boolean,
-      required: [true, "Is this activity recurring?"],
+      required: [false, "Is this activity recurring?"],
     },
   },
   {

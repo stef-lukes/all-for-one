@@ -36,7 +36,7 @@ export const loginUser = ({
   return allForOneApi
     .post("/users/login", { email, password })
     .then((loggedInUser) => {
-      return loggedInUser.data
+      return loggedInUser.data;
     })
     .catch((err) => {
       console.log(err);
@@ -45,30 +45,21 @@ export const loginUser = ({
 
 export const createDailyLogEntry = ({
   user,
-  activityName,
-  bodyText,
+  title,
+  body,
   categories,
-  colour,
-  order,
-  isRecurring,
 }: {
   user: string;
-  activityName: string;
-  bodyText: string;
+  title: string;
+  body: string;
   categories: string;
-  colour: string;
-  order: number;
-  isRecurring: boolean;
 }) => {
   return allForOneApi
     .post("/dailyLog", {
       user,
-      activityName,
-      bodyText,
+      title,
+      body,
       categories,
-      colour,
-      order,
-      isRecurring,
     })
     .then((newLogEntry) => {
       return newLogEntry.data;
