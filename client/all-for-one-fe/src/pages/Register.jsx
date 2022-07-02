@@ -21,17 +21,20 @@ const Register = () => {
   const [formData, setFormData] = useState(initalValues);
   const [formErrors, setFormErrors] = useState({ initalValues });
 
+  // FROM STEF:
   // On change we update the formData values with the input values
   const updateFormData = (event) => {
     const { id, value } = event.target;
     setFormData({ ...formData, [id]: value });
   };
 
+  // FROM STEF:
   // On blur we check if the inputs are valid ie: is valid email, name has no nums or special chars and both password fields match
   const handleValidation = (event) => {
     setFormErrors(validate(formData));
   };
 
+  // FROM STEF:
   // On submit we check that all required fields are filled and that there are no other errors
   const handleSubmit = (event) => {
     event.preventDefault();
