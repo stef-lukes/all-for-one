@@ -3,11 +3,13 @@ import Header from "../components/Header";
 import Navbar from "../components/Navbar";
 import { UserContext } from "../contexts/AuthProvider";
 import DailyLog from "../components/DailyLog";
+import { Navigate, useLocation } from "react-router-dom";
 
 const Dashboard = () => {
   const { user } = useContext(UserContext);
+  const location = useLocation();
 
-  return (
+  return user ? (
     <>
       <Header />
       <Navbar />
@@ -17,6 +19,8 @@ const Dashboard = () => {
       <DailyLog />
       <button>Log Out</button>
     </>
+  ) : (
+    <Navigate to="/login" state={{ from: location }} replace />
   );
 };
 
