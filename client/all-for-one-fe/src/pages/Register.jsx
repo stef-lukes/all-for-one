@@ -5,7 +5,7 @@ import { createUser } from "../utils/api";
 import { UserContext } from "../contexts/AuthProvider";
 
 const Register = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const initalValues = {
@@ -21,19 +21,37 @@ const Register = () => {
   const [formData, setFormData] = useState(initalValues);
   const [formErrors, setFormErrors] = useState({ initalValues });
 
-  const handleChange = (event) => {
+  // On change we update the formData values with the input values
+  const updateFormData = (event) => {
     const { id, value } = event.target;
-    setFormData((prevData) => Object.assign({}, prevData, { [id]: value }));
+    setFormData({ ...formData, [id]: value });
   };
 
-  const handleBlur = (event) => {
-    const { id, value } = event.target;
-    setFormData((prevData) => Object.assign({}, prevData, { [id]: value }));
+  // On blur we check if the inputs are valid ie: is valid email, name has no nums or special chars and both password fields match
+  const handleValidation = (event) => {
     setFormErrors(validate(formData));
   };
 
+  // On submit we check that all required fields are filled and that there are no other errors
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (
+      !formData.email ||
+      !formData.name ||
+      !formData.username ||
+      !formData.password
+    ) {
+      setFormErrors({
+        ...formErrors,
+        required: "Please fill in all form fields!",
+      });
+    } else if (!formData.passwordConfirm) {
+      setFormErrors({
+        ...formErrors,
+        passwordConfirm: "Please confirm your password.",
+      });
+    }
+
     if (Object.keys(formErrors).length === 0) {
       createUser(formData).then((newUser) => {
         if (newUser) {
@@ -49,25 +67,13 @@ const Register = () => {
     const regexEmail =
       /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
     const regexName = /^[a-zA-Z\s]*$/;
-    if (!values.email) {
-      errors.email = "Your email is required.";
-    } else if (!regexEmail.test(values.email)) {
+    if (!regexEmail.test(values.email)) {
       errors.email = "Not a valid email address.";
     }
-    if (!values.name) {
-      errors.name = "Your name is required.";
-    } else if (!regexName.test(values.name)) {
+    if (!regexName.test(values.name)) {
       errors.name = "Name cannot contain any numbers or special characters.";
     }
-    if (!values.username) {
-      errors.name = "Username is required.";
-    }
-    if (!values.password) {
-      errors.password = "Your password is required.";
-    }
-    if (!values.passwordConfirm) {
-      errors.passwordConfirm = "Please confirm your password.";
-    } else if (values.passwordConfirm !== values.password) {
+    if (values.passwordConfirm !== values.password) {
       errors.passwordConfirm = "Your password does not match!";
     }
     return errors;
@@ -83,8 +89,8 @@ const Register = () => {
             id="email"
             value={formData.email}
             placeholder="Enter your Email"
-            onChange={handleChange}
-            onBlur={handleBlur}
+            onChange={updateFormData}
+            onBlur={handleValidation}
           />
           <p>{formErrors.email}</p>
         </label>
@@ -94,8 +100,8 @@ const Register = () => {
             id="name"
             value={formData.name}
             placeholder="Enter your Name"
-            onChange={handleChange}
-            onBlur={handleBlur}
+            onChange={updateFormData}
+            onBlur={handleValidation}
           />
           <p>{formErrors.name}</p>
         </label>
@@ -105,8 +111,8 @@ const Register = () => {
             id="username"
             value={formData.username}
             placeholder="Enter your Username"
-            onChange={handleChange}
-            onBlur={handleBlur}
+            onChange={updateFormData}
+            onBlur={handleValidation}
           />
           <p>{formErrors.username}</p>
         </label>
@@ -116,8 +122,8 @@ const Register = () => {
             id="password"
             value={formData.password}
             placeholder="Enter your Password"
-            onChange={handleChange}
-            onBlur={handleBlur}
+            onChange={updateFormData}
+            onBlur={handleValidation}
           />
           <p>{formErrors.password}</p>
         </label>
@@ -127,12 +133,12 @@ const Register = () => {
             id="passwordConfirm"
             value={formData.passwordConfirm}
             placeholder="Confirm your Password"
-            onChange={handleChange}
-            onBlur={handleBlur}
+            onChange={updateFormData}
+            onBlur={handleValidation}
           />
           <p>{formErrors.passwordConfirm}</p>
         </label>
-
+        <p>{formErrors.required}</p>
         <button>Create My Account</button>
       </form>
     </>
