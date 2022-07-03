@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { UserContext } from "../contexts/AuthProvider";
 import { postLifeStory } from "../utils/api";
 
-const LifeStoryEntry = () => {
+const LifeStoryEntry = ({ setCurrentLifeStory }) => {
   const { user } = useContext(UserContext);
 
   const initialValues = {
@@ -13,18 +13,29 @@ const LifeStoryEntry = () => {
   };
 
   const [lifeStoryEntry, setlifeStoryEntry] = useState(initialValues);
+  // const [isPosted, setIsPosted] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     postLifeStory(lifeStoryEntry).then((newEntry) => {
-      setlifeStoryEntry(newEntry);
+      // setIsPosted(true);
+      setCurrentLifeStory((currLifeStory) => {
+        return [newEntry, ...currLifeStory];
+      });
     });
+    setlifeStoryEntry(initialValues);
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setlifeStoryEntry({ ...lifeStoryEntry, [name]: value });
+    setlifeStoryEntry((currentLifeStory) => {
+      return { ...currentLifeStory, [name]: value };
+    });
   };
+
+  // if (isPosted) {
+  //   return <p>Thanks! You have added to your life story</p>;
+  // }
 
   return (
     <>
