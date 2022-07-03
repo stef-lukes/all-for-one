@@ -14,18 +14,19 @@ const getLifeStory = asyncHandler(async (req, res) => {
 //@route POST api/lifeStory
 //@access Private
 const createLifeStory = asyncHandler(async (req, res) => {
-  console.log(req.body);
+  console.log(req.body, "body in controller");
 
   if (!req.body.heading) {
     res.status(400);
     throw new Error("Please add a heading");
   }
   const lifeStory = await LifeStory.create({
-    user: req.user.id,
+    user: req.body.user,
     heading: req.body.heading,
     bodyText: req.body.bodyText,
     categories: req.body.categories,
   });
+  console.log(lifeStory, "in controller");
   res.status(201).json(lifeStory);
 });
 

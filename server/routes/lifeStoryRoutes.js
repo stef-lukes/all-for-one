@@ -9,7 +9,7 @@ const {
 
 const { protect } = require("../middleware/authMiddleware");
 
-router.route("/").get(protect, getLifeStory).post(protect, createLifeStory);
+router.route("/").get(getLifeStory).post(createLifeStory);
 router
   .route("/:lifeStory_id")
   .put(protect, updateLifeStory)
