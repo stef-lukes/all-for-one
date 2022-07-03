@@ -3,9 +3,10 @@ const mongoose = require("mongoose");
 const lifeStorySchema = mongoose.Schema(
   {
     user: {
-      type: mongoose.Schema.Types.ObjectId,
+      // type: mongoose.Schema.Types.ObjectId,
+      type: String,
       required: true,
-      ref: "User",
+      // ref: "User",
     },
     heading: {
       type: String,
