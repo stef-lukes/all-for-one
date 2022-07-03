@@ -97,15 +97,13 @@ const loginUser = asyncHandler(async (req, res) => {
 
   if (user && (await bcrypt.compare(password, user.password))) {
     //Generate JWT
-    const generateToken = (id) => {
+    generateToken = (id) => {
       return jwt.sign({ id }, process.env.JWT_SECRET, {
         expiresIn: "2h",
       });
     };
     // save user token
-    user.token = token;
-
-    res.json(user);
+    res.json({ user, token: generateToken(user._id) });
   } else {
     res.status(400);
     throw new Error("Invalid credentials");
