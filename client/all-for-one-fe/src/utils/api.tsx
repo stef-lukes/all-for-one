@@ -94,3 +94,9 @@ export const postLifeStory = ({
       return lifeStoryEntry.data;
     });
 };
+
+export const getLifeStory = () => {
+  return allForOneApi.get("/lifeStory").then((lifeStory) => {
+    return lifeStory.data;
+  });
+};
