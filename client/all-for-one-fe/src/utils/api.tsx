@@ -71,3 +71,26 @@ export const getDailyLog = () => {
     return dailyLog.data;
   });
 };
+
+export const postLifeStory = ({
+  user,
+  heading,
+  bodyText,
+  categories,
+}: {
+  user: string;
+  heading: string;
+  bodyText: string;
+  categories: string;
+}) => {
+  return allForOneApi
+    .post("/lifeStory", {
+      user,
+      heading,
+      bodyText,
+      categories,
+    })
+    .then((lifeStoryEntry) => {
+      return lifeStoryEntry.data;
+    });
+};
