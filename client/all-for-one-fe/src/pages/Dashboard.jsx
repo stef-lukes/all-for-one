@@ -14,7 +14,7 @@ const Dashboard = () => {
       <Header />
       <Navbar />
       <h1>Dashboard</h1>
-      <img className="avatar" src={user.avatar_url} alt="" />
+      <img className="avatar" src={user.user.avatar_url} alt="" />
       <p>Hello {user.user.name}!</p>
       <DailyLog />
       <button>Log Out</button>
