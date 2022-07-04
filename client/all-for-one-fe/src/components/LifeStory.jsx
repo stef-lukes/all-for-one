@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import { useState, useEffect } from "react";
 import { getLifeStory } from "../utils/api";
 import DeleteLifeStory from "./DeleteLifeStory";
+import EditLifeStory from "./EditLifeStory";
 
 const LifeStory = () => {
   const [currentLifeStory, setCurrentLifeStory] = useState([{}]);
@@ -37,14 +38,19 @@ const LifeStory = () => {
         {currentLifeStory.map((lifeStory) => {
           return (
             <>
-              <h1>{lifeStory.heading}</h1>
-              <p>{lifeStory.bodyText}</p>
-              <p>{lifeStory.categories}</p>
-              <button>Edit</button>
-              <DeleteLifeStory
-                lifeStory={lifeStory}
-                setCurrentLifeStory={setCurrentLifeStory}
-              />
+              <li key={lifeStory._id}>
+                <h1>{lifeStory.heading}</h1>
+                <p>{lifeStory.bodyText}</p>
+                <p>{lifeStory.categories}</p>
+                <EditLifeStory
+                  lifeStory={lifeStory}
+                  setCurrentLifeStory={setCurrentLifeStory}
+                />
+                <DeleteLifeStory
+                  lifeStory={lifeStory}
+                  setCurrentLifeStory={setCurrentLifeStory}
+                />
+              </li>
             </>
           );
         })}

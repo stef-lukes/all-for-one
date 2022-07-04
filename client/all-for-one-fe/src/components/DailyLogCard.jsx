@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getDailyLog } from "../utils/api";
 import DailyLogForm from "./DailyLogForm";
+import DeleteDailyLogCard from "./DeleteDailyLogCard";
 
 const DailyLogCard = () => {
   const [currentDailyLog, setCurrentDailyLog] = useState([{}]);
@@ -37,7 +38,7 @@ const DailyLogCard = () => {
                 <p>{logEntry.body}</p>
                 <p>{logEntry.categories}</p>
                 <button>Edit</button>
-                <button>Delete</button>
+                <DeleteDailyLogCard />
               </li>
             </>
           );

@@ -106,3 +106,24 @@ export const getLifeStory = () => {
 export const deleteLifeStory = (lifeStory_id: string) => {
   return allForOneApi.delete(`/lifeStory/${lifeStory_id}`);
 };
+
+export const editLifeStory = (
+  lifeStory_id: string,
+  {
+    user,
+    heading,
+    bodyText,
+    categories,
+  }: {
+    user: string;
+    heading: string;
+    bodyText: string;
+    categories: string;
+  }
+) => {
+  return allForOneApi
+    .put(`/lifeStory/${lifeStory_id}`, { user, heading, bodyText, categories })
+    .then((updatedLifeStory) => {
+      return updatedLifeStory.data;
+    });
+};
