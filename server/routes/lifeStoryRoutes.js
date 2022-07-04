@@ -13,5 +13,5 @@ router.route("/").get(getLifeStory).post(createLifeStory);
 router
   .route("/:lifeStory_id")
   .put(protect, updateLifeStory)
-  .delete(protect, deleteLifeStory);
+  .delete(deleteLifeStory);
 module.exports = router;
