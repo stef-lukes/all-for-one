@@ -1,8 +1,8 @@
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { createDailyLogEntry } from "../utils/api";
 import { UserContext } from "../contexts/AuthProvider";
 
-const DailyLogForm = () => {
+const DailyLogForm = ({ setCurrentDailyLog }) => {
   const { user } = useContext(UserContext);
 
   const initialValues = {
@@ -17,14 +17,20 @@ const DailyLogForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     createDailyLogEntry(logEntryData).then((newEntry) => {
-      setLogEntryData(newEntry);
-      console.log(newEntry);
+      // setLogEntryData(newEntry);
+      // console.log(newEntry);
+      setCurrentDailyLog((currLogEntry) => {
+        return [newEntry, ...currLogEntry];
+      });
     });
+    setLogEntryData(initialValues);
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setLogEntryData({ ...logEntryData, [name]: value });
+    setLogEntryData((currentDailyLog) => {
+      return { ...currentDailyLog, [name]: value };
+    });
   };
 
   return (
