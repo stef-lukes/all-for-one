@@ -62,17 +62,12 @@ const deleteDailyLogEntry = asyncHandler(async (req, res) => {
     req.params.dailyLogEntry_id
   );
 
-  if (!req.user) {
-    res.status(401);
-    throw new Error("User not found");
-  }
-
   if (!dailyLogEntry) {
     res.status(400);
     throw new Error("Activity not found");
   }
 
-  res.status(200).json(`Activty ${dailyLogEntry.activityName} deleted`);
+  res.status(200).json(`Activty ${dailyLogEntry.title} deleted`);
 });
 
 module.exports = {

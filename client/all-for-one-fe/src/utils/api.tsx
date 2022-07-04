@@ -73,6 +73,10 @@ export const getDailyLog = () => {
   });
 };
 
+export const deleteDailyLog = (logEntry_id: string) => {
+  return allForOneApi.delete(`/dailyLog/${logEntry_id}`);
+};
+
 //lifeStory
 export const postLifeStory = ({
   user,

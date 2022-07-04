@@ -38,7 +38,10 @@ const DailyLogCard = () => {
                 <p>{logEntry.body}</p>
                 <p>{logEntry.categories}</p>
                 <button>Edit</button>
-                <DeleteDailyLogCard />
+                <DeleteDailyLogCard
+                  logEntry={logEntry}
+                  setCurrentDailyLog={setCurrentDailyLog}
+                />
               </li>
             </>
           );
