@@ -12,7 +12,7 @@ const { protect } = require("../middleware/authMiddleware");
 router.route("/").get(getDailyLog).post(setDailyLogEntry);
 router
   .route("/:dailyLogEntry_id")
-  .put(protect, updateDailyLogEntry)
-  .delete(protect, deleteDailyLogEntry);
+  .put(updateDailyLogEntry)
+  .delete(deleteDailyLogEntry);
 
 module.exports = router;

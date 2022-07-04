@@ -13,12 +13,10 @@ const LifeStoryEntry = ({ setCurrentLifeStory }) => {
   };
 
   const [lifeStoryEntry, setlifeStoryEntry] = useState(initialValues);
-  // const [isPosted, setIsPosted] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     postLifeStory(lifeStoryEntry).then((newEntry) => {
-      // setIsPosted(true);
       setCurrentLifeStory((currLifeStory) => {
         return [newEntry, ...currLifeStory];
       });
@@ -32,10 +30,6 @@ const LifeStoryEntry = ({ setCurrentLifeStory }) => {
       return { ...currentLifeStory, [name]: value };
     });
   };
-
-  // if (isPosted) {
-  //   return <p>Thanks! You have added to your life story</p>;
-  // }
 
   return (
     <>

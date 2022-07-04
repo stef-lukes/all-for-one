@@ -18,8 +18,6 @@ const DailyLogForm = ({ setCurrentDailyLog }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     createDailyLogEntry(logEntryData).then((newEntry) => {
-      // setLogEntryData(newEntry);
-      // console.log(newEntry);
       setCurrentDailyLog((currLogEntry) => {
         return [newEntry, ...currLogEntry];
       });
