@@ -7,8 +7,8 @@ const DeleteLifeStory = ({ lifeStory, setCurrentLifeStory }) => {
 
   const handleClick = () => {
     const lifeStoryId = lifeStory._id;
-
     deleteLifeStory(lifeStoryId).then(() => {
+      alert("Life story deleted");
       setCurrentLifeStory((currLifeStory) => {
         let updatedLifeStory = currLifeStory.filter(
           (lifeStori) => lifeStori._id !== lifeStoryId
@@ -17,7 +17,9 @@ const DeleteLifeStory = ({ lifeStory, setCurrentLifeStory }) => {
       });
     });
   };
-  return <button onClick={handleClick}>Delete</button>;
+  if (user.user._id === lifeStory.user || user.user.isAdmin === true) {
+    return <button onClick={handleClick}>Delete</button>;
+  }
 };
 
 export default DeleteLifeStory;
