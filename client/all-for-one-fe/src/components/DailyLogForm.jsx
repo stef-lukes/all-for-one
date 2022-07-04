@@ -7,6 +7,7 @@ const DailyLogForm = () => {
   console.log({ user });
   const initialValues = {
     user: user.user._id,
+    name: user.user.name,
     title: "",
     body: "",
     categories: "",

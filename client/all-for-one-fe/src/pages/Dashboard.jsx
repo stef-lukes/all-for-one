@@ -10,15 +10,14 @@ const Dashboard = () => {
   const location = useLocation();
 
   return user ? (
-    <>
+    <page>
       <Header />
-      <Navbar />
       <h1>Dashboard</h1>
-      <img className="avatar" src={user.avatar_url} alt="" />
-      <p>Hello {user.user.name}!</p>
-      <DailyLog />
-      <button>Log Out</button>
-    </>
+      <main>
+        <Navbar />
+        <DailyLog className="content" />
+      </main>
+    </page>
   ) : (
     <Navigate to="/" state={{ from: location }} replace />
   );
