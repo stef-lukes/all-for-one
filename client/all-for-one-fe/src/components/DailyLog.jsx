@@ -1,4 +1,3 @@
-import DailyLogForm from "./DailyLogForm";
 import { useContext } from "react";
 import { UserContext } from "../contexts/AuthProvider";
 import DailyLogCard from "./DailyLogCard";
@@ -14,7 +13,6 @@ const DailyLog = () => {
   return (
     <>
       <h1>Daily Log</h1>
-      <DailyLogForm />
       <DailyLogCard />
     </>
   );
