@@ -26,7 +26,7 @@ const createLifeStory = asyncHandler(async (req, res) => {
     bodyText: req.body.bodyText,
     categories: req.body.categories,
   });
-  console.log(lifeStory, "in controller");
+  console.log(lifeStory._id, "in controller");
   res.status(201).json(lifeStory);
 });
 
@@ -41,10 +41,10 @@ const updateLifeStory = asyncHandler(async (req, res) => {
     throw new Error("Lifestory not found");
   }
 
-  if (!req.user) {
-    res.status(401);
-    throw new Error("User not found");
-  }
+  // if (!req.user) {
+  //   res.status(401);
+  //   throw new Error("User not found");
+  // }
   //Add error handling when hubcodes don't match liefStory and user
   const updatedLifeStory = await LifeStory.findByIdAndUpdate(
     req.params.lifeStory_id,
@@ -61,11 +61,6 @@ const updateLifeStory = asyncHandler(async (req, res) => {
 //@access Private
 const deleteLifeStory = asyncHandler(async (req, res) => {
   const lifeStory = await LifeStory.findByIdAndRemove(req.params.lifeStory_id);
-
-  if (!req.user) {
-    res.status(401);
-    throw new Error("User not found");
-  }
 
   if (!lifeStory) {
     res.status(400);
