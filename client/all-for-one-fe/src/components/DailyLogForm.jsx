@@ -4,15 +4,15 @@ import { UserContext } from "../contexts/AuthProvider";
 
 const DailyLogForm = () => {
   const { user } = useContext(UserContext);
-  console.log({ user });
+
   const initialValues = {
     user: user.user._id,
     title: "",
     body: "",
     categories: "",
   };
+
   const [logEntryData, setLogEntryData] = useState(initialValues);
-  console.log(logEntryData);
 
   const handleSubmit = (event) => {
     event.preventDefault();
