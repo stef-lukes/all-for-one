@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
 const Users = require("../models/userModel");
+const nodemailer = require("nodemailer");
 
 //@desc Get users
 //@route GET api/users
@@ -117,6 +118,43 @@ const getMe = asyncHandler(async (req, res) => {
   res.status(200).json(req.user);
 });
 
+const inviteUser = asyncHandler(async (req, res) => {
+  const { emailAddress } = req.body;
+  // create reusable transporter object using the default SMTP transport
+  let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    host: 'smtp.gmail.com',
+    secure: false,
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.EMAIL_APP_PASSWORD,
+      }
+  });
+
+  const message = {
+    from: process.env.EMAIL, // sender address
+    to: `${emailAddress}`, // list of receivers
+    subject: "Please verify your email address", // Subject line
+    text: "Hello world?", // plain text body
+    // html: "<b>Hello world?</b>", // html body
+  };
+
+  // send mail with defined transport object
+  const info = await transporter.sendMail(message);
+
+  console.log("Message sent: %s", info.messageId);
+  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+  res.send("email sent successfully");
+});
+
+//Generate JWT
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: "15d",
+  });
+};
+
 module.exports = {
   getUsers,
   setUser,
@@ -124,4 +162,5 @@ module.exports = {
   deleteUser,
   loginUser,
   getMe,
+  inviteUser,
 };
