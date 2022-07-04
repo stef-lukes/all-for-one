@@ -73,6 +73,7 @@ export const getDailyLog = () => {
   });
 };
 
+//lifeStory
 export const postLifeStory = ({
   user,
   heading,
@@ -100,4 +101,8 @@ export const getLifeStory = () => {
   return allForOneApi.get("/lifeStory").then((lifeStory) => {
     return lifeStory.data;
   });
+};
+
+export const deleteLifeStory = (lifeStory_id: string) => {
+  return allForOneApi.delete(`/lifeStory/${lifeStory_id}`);
 };
