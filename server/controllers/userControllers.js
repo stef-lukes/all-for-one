@@ -94,21 +94,13 @@ const deleteUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await Users.findOne({ email });
-  if (user) {
-    res.status(200).send({ user });
-  }
-  // if (user && (await bcrypt.compare(password, user.password))) {
-  //   //Generate JWT
-  //   generateToken = (id) => {
-  //     return jwt.sign({ id }, process.env.JWT_SECRET, {
-  //       expiresIn: "2h",
-  //     });
-  //   };
-  //   // save user token
-  //   res.json({ user, token: generateToken(user._id) });
-  // }  
-  else {
+  let user = await Users.findOne({ email });
+  let passwordCheck = await bcrypt.compare(password, user.password);
+
+  if (user && passwordCheck) {
+    const accessToken = jwt.sign({ user }, process.env.JWT_ACCESS_SECRET);
+    res.json({user, token: accessToken});
+  } else {
     res.status(400);
     throw new Error("Invalid credentials");
   }
