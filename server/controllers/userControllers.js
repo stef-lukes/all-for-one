@@ -95,17 +95,20 @@ const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const user = await Users.findOne({ email });
-
-  if (user && (await bcrypt.compare(password, user.password))) {
-    //Generate JWT
-    generateToken = (id) => {
-      return jwt.sign({ id }, process.env.JWT_SECRET, {
-        expiresIn: "2h",
-      });
-    };
-    // save user token
-    res.json({ user, token: generateToken(user._id) });
-  } else {
+  if (user) {
+    res.status(200).send({ user });
+  }
+  // if (user && (await bcrypt.compare(password, user.password))) {
+  //   //Generate JWT
+  //   generateToken = (id) => {
+  //     return jwt.sign({ id }, process.env.JWT_SECRET, {
+  //       expiresIn: "2h",
+  //     });
+  //   };
+  //   // save user token
+  //   res.json({ user, token: generateToken(user._id) });
+  // }  
+  else {
     res.status(400);
     throw new Error("Invalid credentials");
   }
@@ -122,13 +125,13 @@ const inviteUser = asyncHandler(async (req, res) => {
   const { emailAddress } = req.body;
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    host: 'smtp.gmail.com',
+    service: "gmail",
+    host: "smtp.gmail.com",
     secure: false,
-      auth: {
-        user: process.env.EMAIL,
-        pass: process.env.EMAIL_APP_PASSWORD,
-      }
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.EMAIL_APP_PASSWORD,
+    },
   });
 
   const message = {
