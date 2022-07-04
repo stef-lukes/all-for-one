@@ -41,10 +41,10 @@ const updateLifeStory = asyncHandler(async (req, res) => {
     throw new Error("Lifestory not found");
   }
 
-  if (!req.user) {
-    res.status(401);
-    throw new Error("User not found");
-  }
+  // if (!req.user) {
+  //   res.status(401);
+  //   throw new Error("User not found");
+  // }
   //Add error handling when hubcodes don't match liefStory and user
   const updatedLifeStory = await LifeStory.findByIdAndUpdate(
     req.params.lifeStory_id,
