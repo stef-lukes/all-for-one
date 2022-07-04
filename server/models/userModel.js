@@ -37,6 +37,12 @@ const userSchema = mongoose.Schema(
     avatarUrl: {
       type: String,
     },
+    hubCodes: {
+      type: [String],
+      required: [
+        false, "What hubs does this user have associations with?"
+      ]
+    }
   },
   {
     timestamps: true,
