@@ -12,7 +12,6 @@ const Dashboard = () => {
   return user ? (
     <>
       <Header />
-      <Navbar />
       <h1>Dashboard</h1>
       <img className="avatar" src={user.user.avatar_url} alt="" />
       <p>Hello {user.user.name}!</p>
