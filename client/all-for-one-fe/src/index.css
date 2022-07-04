@@ -1,4 +1,5 @@
-body {
+body,
+button {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -28,7 +29,7 @@ main {
   margin: auto;
   position: relative;
   top: 20vh;
-  padding: 50px;
+  padding: 20px 30px;
   border-radius: 20px;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.421);
   box-sizing: border-box;
@@ -40,41 +41,52 @@ main {
 }
 
 .page-msg {
-  font-size: 22px;
+  font-size: 20px;
   color: white;
   font-weight: 300;
   text-align: center;
-  width: 95%;
-  margin: 40px auto;
-}
-
-#onboarding-links {
-  display: flex;
   width: 100%;
-  justify-content: center;
-  margin: auto;
+  margin: 20px auto;
+}
+.page-msg span {
+  font-weight: 600;
 }
 
-.onboarding-link {
-  width: 100px;
-  background: white;
-  color: #17293a;
+.log-reg-from {
+  width: 100% !important;
+}
+
+.log-reg-btn {
+  width: 100%;
+  padding: 8px 0;
+  background-color: rgb(0, 200, 255);
+  border: none;
+  border-radius: 5px;
   font-weight: 700;
-  font-size: 14px;
-  text-decoration: none;
-  padding: 10px 5px;
-  border-radius: 10px;
-  margin: 0 10px;
-  transition: all 0.2s ease-in;
+  color: white;
+  margin: 15px auto;
+  transition: all 0.25s ease-in-out;
+  cursor: pointer;
 }
 
-.onboarding-link:hover {
-  background: rgb(88, 225, 127);
+.log-reg-btn:hover {
+  background-color: rgb(0, 255, 170);
+  color: #17293a;
+}
+
+.log-reg-link-home {
+  text-decoration: none;
   color: white;
+  margin: auto;
+  font-size: 14px;
+}
+
+.log-reg-link-home span {
+  text-decoration: underline;
+  color: cornsilk;
 }
 
 form {
-  width: 300px;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -84,12 +96,28 @@ form label {
   width: 100%;
 }
 
+form p {
+  text-align: left;
+  margin: 0;
+  color: rgb(255, 162, 162);
+  border-radius: 3px;
+  padding-left: 5px;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
 form input {
-  margin: 5px 0;
-  padding: 6px 5px;
+  margin: 3px 0;
+  padding: 8px;
   border-radius: 5px;
-  border: 2px lightgray solid;
+  border: none;
   width: 95%;
+  background-color: #fffdf6;
+}
+
+form input:focus {
+  background-color: rgb(255, 253, 195);
+  outline: none;
 }
 
 .avatar {

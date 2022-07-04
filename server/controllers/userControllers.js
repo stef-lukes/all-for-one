@@ -16,8 +16,8 @@ const getUsers = asyncHandler(async (req, res) => {
 //@route POST api/users
 //@access Public
 const setUser = asyncHandler(async (req, res) => {
-  const { username, email, password } = req.body;
-  if (!username || !email || !password) {
+  const { username, email, password, name } = req.body;
+  if (!username || !email || !password || !name) {
     res.status(400);
     throw new Error("Please complete all fields");
   }
@@ -34,7 +34,7 @@ const setUser = asyncHandler(async (req, res) => {
 
   //Create User
   const user = await Users.create({
-    name: req.body.name,
+    name: name,
     username: username,
     email: email,
     password: hashedPassword,
@@ -44,11 +44,9 @@ const setUser = asyncHandler(async (req, res) => {
     avatarUrl: req.body.avatarUrl,
   });
 
-  user.token = generateToken(user._id);
-
   if (user) {
     //changed status code from 201 to 200
-    res.status(200).json(user);
+    res.status(200).json({ user, token: generateToken(user._id) });
   } else {
     res.status(400);
     throw new Error("Invalid data");
@@ -97,7 +95,15 @@ const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const user = await Users.findOne({ email });
+
   if (user && (await bcrypt.compare(password, user.password))) {
+    //Generate JWT
+    generateToken = (id) => {
+      return jwt.sign({ id }, process.env.JWT_SECRET, {
+        expiresIn: "2h",
+      });
+    };
+    // save user token
     res.json({ user, token: generateToken(user._id) });
   } else {
     res.status(400);
@@ -109,11 +115,7 @@ const loginUser = asyncHandler(async (req, res) => {
 //@route POST api/users/me
 //@access Public
 const getMe = asyncHandler(async (req, res) => {
-  const { _id, name, email, username, isAdmin, isPrincipal } =
-    await Users.findById(req.user.id);
-  res
-    .status(200)
-    .json({ id: _id, name, email, username, isAdmin, isPrincipal });
+  res.status(200).json(req.user);
 });
 
 const inviteUser = asyncHandler(async (req, res) => {
@@ -130,7 +132,7 @@ const inviteUser = asyncHandler(async (req, res) => {
   });
 
   const message = {
-    from: 'All for One' process.env.EMAIL, // sender address
+    from: process.env.EMAIL, // sender address
     to: `${emailAddress}`, // list of receivers
     subject: "Please verify your email address", // Subject line
     text: "Hello world?", // plain text body

@@ -3,21 +3,20 @@ const mongoose = require("mongoose");
 const dailyLogSchema = mongoose.Schema(
   {
     user: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: "User",
-    },
-    activityName: {
       type: String,
-      required: [true, "Add activity name"],
+      required: true,
     },
-    bodyText: {
+    title: {
+      type: String,
+      required: [true, "Post title"],
+    },
+    body: {
       type: String,
       required: [true, "Add bodyText"],
     },
     categories: {
       type: [String],
-      required: [true, ["", "", ""]],
+      required: [false, ["", "", ""]],
     },
     colour: {
       type: String,
@@ -25,11 +24,11 @@ const dailyLogSchema = mongoose.Schema(
     },
     order: {
       type: Number,
-      required: true,
+      required: false,
     },
     isRecurring: {
       type: Boolean,
-      required: [true, "Is this activity recurring?"],
+      required: [false, "Is this activity recurring?"],
     },
   },
   {

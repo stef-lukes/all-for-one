@@ -15,18 +15,15 @@ const getDailyLog = asyncHandler(async (req, res) => {
 //@route POST api/dailyLog
 //@access Private
 const setDailyLogEntry = asyncHandler(async (req, res) => {
-  if (!req.body.activityName) {
+  if (!req.body.title) {
     res.status(400);
     throw new Error("Please set a activity name");
   }
   const dailyLogEntry = await DailyLog.create({
-    user: req.user.id,
-    activityName: req.body.activityName,
-    bodyText: req.body.bodyText,
+    user: req.body.user,
+    title: req.body.title,
+    body: req.body.body,
     categories: req.body.categories,
-    colour: req.body.colour,
-    order: req.body.order,
-    isRecurring: req.body.isRecurring,
   });
   res.status(201).json(dailyLogEntry);
 });
@@ -42,8 +39,7 @@ const updateDailyLogEntry = asyncHandler(async (req, res) => {
     throw new Error("Activity not found");
   }
 
-  const user = await User.findById(req.user.id);
-  if (!user) {
+  if (!req.user) {
     res.status(401);
     throw new Error("User not found");
   }
@@ -66,8 +62,7 @@ const deleteDailyLogEntry = asyncHandler(async (req, res) => {
     req.params.dailyLogEntry_id
   );
 
-  const user = await User.findById(req.user.id);
-  if (!user) {
+  if (!req.user) {
     res.status(401);
     throw new Error("User not found");
   }

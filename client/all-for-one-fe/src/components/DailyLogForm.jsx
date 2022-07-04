@@ -1,31 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { createDailyLogEntry } from "../utils/api";
+import { UserContext } from "../contexts/AuthProvider";
 
 const DailyLogForm = () => {
-  const initalValues = {
-    user: "",
-    activityName: "",
-    bodyText: "",
+  const { user } = useContext(UserContext);
+  console.log({ user });
+  const initialValues = {
+    user: user.user._id,
+    title: "",
+    body: "",
     categories: "",
-    colour: "",
-    order: 1,
-    isRecurring: false,
   };
-  const [logEntryData, setLogEntryData] = useState(initalValues);
-
-  // useEffect(() => {
-  //   createDailyLogEntry(logEntryData).then((newEntry) => {
-  //     console.log(newEntry);
-  //     setLogEntryData(newEntry);
-  //     return newEntry;
-  //   });
-  // });
+  const [logEntryData, setLogEntryData] = useState(initialValues);
+  console.log(logEntryData);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     createDailyLogEntry(logEntryData).then((newEntry) => {
       setLogEntryData(newEntry);
-      console.log(logEntryData);
+      console.log(newEntry);
     });
   };
 
@@ -40,21 +33,21 @@ const DailyLogForm = () => {
       <form onSubmit={handleSubmit}>
         <label aria-label="activity name">
           <input
-            id="activityName"
-            name="activityName"
+            id="title"
+            name="title"
             type="text"
-            value={logEntryData.activityName}
+            value={logEntryData.title}
             placeholder="Enter activity name"
             onChange={handleChange}
             onBlur={handleChange}
           />
         </label>
         <label aria-label="body text">
-          <input
-            id="bodyText"
-            name="bodyText"
+          <textarea
+            id="body"
+            name="body"
             type="text"
-            value={logEntryData.bodyText}
+            value={logEntryData.body}
             placeholder="Enter activity details"
             onChange={handleChange}
             onBlur={handleChange}
@@ -67,39 +60,6 @@ const DailyLogForm = () => {
             type="text"
             value={logEntryData.categories}
             placeholder="Enter category"
-            onChange={handleChange}
-            onBlur={handleChange}
-          />
-        </label>
-        <label aria-label="colour">
-          <input
-            id="colour"
-            name="colour"
-            type="text"
-            value={logEntryData.colour}
-            placeholder="Enter colour"
-            onChange={handleChange}
-            onBlur={handleChange}
-          />
-        </label>
-        <label aria-label="order">
-          <input
-            id="order"
-            name="order"
-            type="text"
-            value={logEntryData.order}
-            placeholder="Order"
-            onChange={handleChange}
-            onBlur={handleChange}
-          />
-        </label>
-        <label aria-label="is recurring">
-          <input
-            id="isRecurring"
-            name="isRecurring"
-            type="text"
-            value={logEntryData.isRecurring}
-            placeholder="Is Recurring?"
             onChange={handleChange}
             onBlur={handleChange}
           />

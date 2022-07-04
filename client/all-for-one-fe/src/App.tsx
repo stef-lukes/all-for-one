@@ -12,20 +12,23 @@ function App() {
   const [user, setUser] = useState();
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
-      <Router>
+    <Router>
+      <UserContext.Provider value={{ user, setUser }}>
         <div className="App">
           <Routes>
+            {/* Public Routes */}
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+
+            {/* Protected Routes */}
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/lifestory" element={<LifeStory />} />
             <Route path="/familytree" element={<FamilyTree />} />
           </Routes>
         </div>
-      </Router>
-    </UserContext.Provider>
+      </UserContext.Provider>
+    </Router>
   );
 }
 
