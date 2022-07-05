@@ -79,33 +79,14 @@ export const deleteDailyLog = (logEntry_id: string) => {
 };
 
 //lifeStory
-export const postLifeStory = ({
-  user,
-  heading,
-  bodyText,
-  categories,
-}: {
-  user: string;
-  heading: string;
-  bodyText: string;
-  categories: string;
-}) => {
-  return allForOneApi
-    .post("/lifeStory", {
-      user,
-      heading,
-      bodyText,
-      categories,
-    })
-    .then((lifeStoryEntry) => {
-      return lifeStoryEntry.data;
-    });
-};
 
-export const getLifeStory = () => {
-  return allForOneApi.get("/lifeStory").then((lifeStory) => {
-    return lifeStory.data;
-  });
+export const getLifeStory = (category: String) => {
+  return allForOneApi
+    .get("/lifeStory", { params: { category } })
+    .then((lifeStory) => {
+      console.log(lifeStory.data, "lifeStory.data");
+      return lifeStory.data;
+    });
 };
 
 export const deleteLifeStory = (lifeStory_id: string) => {

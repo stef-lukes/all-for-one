@@ -1,26 +1,21 @@
 const mongoose = require("mongoose");
 
+const questionAnswerSchema = mongoose.Schema({
+  question: { type: String },
+  answer: { type: String },
+});
+
 const lifeStorySchema = mongoose.Schema(
   {
-    user: {
-      // type: mongoose.Schema.Types.ObjectId,
+    category: {
       type: String,
-      required: true,
-      // ref: "User",
+      required: [true, "Select a category."],
     },
-    heading: {
-      type: String,
-      required: [true, "Add a title"],
-    },
-    bodyText: {
-      type: String,
-      required: [true, "Add bodyText"],
-    },
-    categories: {
-      type: [String],
-      required: [false, ["", "", ""]],
+    questionAnswer: {
+      type: [questionAnswerSchema],
     },
   },
+
   {
     //have not added the date property since we have the timestamps
     timestamps: true,

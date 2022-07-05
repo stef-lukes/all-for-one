@@ -1,10 +1,9 @@
 import Header from "./Header";
-import LifeStoryEntry from "./LifeStoryEntry";
 import Navbar from "./Navbar";
 import { useState, useEffect } from "react";
 import { getLifeStory } from "../utils/api";
-import DeleteLifeStory from "./DeleteLifeStory";
-import EditLifeStory from "./EditLifeStory";
+import { Link } from "react-router-dom";
+import LifeStoryCategory from "./LifeStoryCategory";
 
 const LifeStory = () => {
   const [currentLifeStory, setCurrentLifeStory] = useState([{}]);
@@ -14,6 +13,7 @@ const LifeStory = () => {
   useEffect(() => {
     getLifeStory()
       .then((lifeStory) => {
+        console.log(lifeStory);
         setCurrentLifeStory(lifeStory);
         setIsLoading(false);
       })
@@ -36,26 +36,22 @@ const LifeStory = () => {
       <Navbar />
       <ul>
         {currentLifeStory.map((lifeStory) => {
+          console.log(lifeStory, "???");
           return (
             <>
-              <li key={lifeStory._id}>
-                <h1>{lifeStory.heading}</h1>
-                <p>{lifeStory.bodyText}</p>
-                <p>{lifeStory.categories}</p>
-                <EditLifeStory
-                  lifeStory={lifeStory}
-                  setCurrentLifeStory={setCurrentLifeStory}
-                />
-                <DeleteLifeStory
-                  lifeStory={lifeStory}
-                  setCurrentLifeStory={setCurrentLifeStory}
-                />
-              </li>
+              <Link
+                lifestory={lifeStory}
+                key={lifeStory._id}
+                className="story-link"
+                to={`/lifestory/${lifeStory.category}`}
+              >
+                {lifeStory.category}
+              </Link>
+              <LifeStoryCategory lifeStory={lifeStory} />
             </>
           );
         })}
       </ul>
-      <LifeStoryEntry setCurrentLifeStory={setCurrentLifeStory} />
     </>
   );
 };
