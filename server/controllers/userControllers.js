@@ -43,12 +43,16 @@ const setUser = asyncHandler(async (req, res) => {
     isPrincipal: req.body.isPrincipal,
     relationship: req.body.relationship,
     avatarUrl: req.body.avatarUrl,
+    hubCodes: req.body.hubCodes,
+    location: req.body.location,
+    token: null,
   });
 
   if (user) {
     //changed status code from 201 to 200
-    user.token = generateToken(user._id);
-    res.status(200).json({ user });
+    token = generateToken(user._id);
+    user.token = token;
+    res.status(200).json( user );
   } else {
     res.status(400);
     throw new Error("Invalid data");

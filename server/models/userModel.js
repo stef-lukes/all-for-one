@@ -51,6 +51,9 @@ const userSchema = mongoose.Schema(
       type: locationSchema,
       required: false,
     },
+    token: {
+      type: String,
+    },
   },
   {
     timestamps: true,
