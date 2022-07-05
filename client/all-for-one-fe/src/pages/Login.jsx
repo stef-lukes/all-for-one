@@ -5,12 +5,21 @@ import { UserContext } from "../contexts/AuthProvider";
 import { loginUser } from "../utils/api";
 
 const Login = () => {
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
   const initialValues = { email: "", password: "" };
 
   const [formData, setFormData] = useState(initialValues);
   const [formErrors, setFormErrors] = useState(initialValues);
+
+  useEffect(() => {
+    const stringFromStorage = localStorage.getItem("all-for-one-user")
+    if (!user && stringFromStorage) {
+      const storedUser = JSON.parse(stringFromStorage);
+      console.log(storedUser, "<<<<< user from local storage")
+      setUser(storedUser)
+    }
+  }, [])
 
   // FROM STEF:
   // On change we update the formData values with the input values
@@ -36,10 +45,15 @@ const Login = () => {
     if (Object.keys(formErrors).length === 0) {
       loginUser(formData).then((loggedInUser) => {
         setUser(loggedInUser);
+        localStorage.setItem('all-for-one-user', JSON.stringify(loggedInUser));
         navigate("/dashboard");
       });
     }
   };
+
+  if (user) {
+    navigate("/dashboard");
+  }
 
   const validate = (values) => {
     const errors = {};

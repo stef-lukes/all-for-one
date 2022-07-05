@@ -1,5 +1,10 @@
 const mongoose = require("mongoose");
 
+const locationSchema = mongoose.Schema({
+  lat: { type: Number },
+  long: { type: Number },
+});
+
 const userSchema = mongoose.Schema(
   {
     name: {
@@ -9,6 +14,7 @@ const userSchema = mongoose.Schema(
     username: {
       type: String,
       required: [true, "Add username"],
+      unique: true,
     },
     email: {
       type: String,
@@ -35,6 +41,17 @@ const userSchema = mongoose.Schema(
       ],
     },
     avatarUrl: {
+      type: String,
+    },
+    hubCode: {
+      type: String,
+      required: [false, "What hub is this user associated with?"],
+    },
+    location: {
+      type: locationSchema,
+      required: false,
+    },
+    token: {
       type: String,
     },
   },

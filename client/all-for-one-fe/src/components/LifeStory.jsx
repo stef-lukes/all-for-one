@@ -1,16 +1,25 @@
 import Header from "./Header";
 import Navbar from "./Navbar";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { UserContext } from "../contexts/AuthProvider";
 import { getLifeStory } from "../utils/api";
 import { Link } from "react-router-dom";
 import LifeStoryCategory from "./LifeStoryCategory";
 
 const LifeStory = () => {
+  const {user, setUser} = useContext(UserContext);
   const [currentLifeStory, setCurrentLifeStory] = useState([{}]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setError] = useState(null);
 
+  
   useEffect(() => {
+    const stringFromStorage = localStorage.getItem("all-for-one-user")
+    if (!user && stringFromStorage) {
+      const storedUser = JSON.parse(stringFromStorage);
+      console.log(storedUser, "<<<<< user from local storage")
+      setUser(storedUser)
+    }
     getLifeStory()
       .then((lifeStory) => {
         console.log(lifeStory);
