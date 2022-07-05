@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import { UserContext } from "./contexts/AuthProvider";
 import LifeStory from "./components/LifeStory";
 import FamilyTree from "./components/FamilyTree";
+import LifeStoryCategory from "./components/LifeStoryCategory";
 
 function App() {
   const [user, setUser] = useState();
@@ -24,6 +25,10 @@ function App() {
             {/* Protected Routes */}
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/lifestory" element={<LifeStory />} />
+            <Route
+              path="/lifestory/:category"
+              element={<LifeStoryCategory />}
+            />
             <Route path="/familytree" element={<FamilyTree />} />
           </Routes>
         </div>

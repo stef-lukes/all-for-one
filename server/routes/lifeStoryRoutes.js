@@ -9,5 +9,5 @@ const {
 const { protect } = require("../middleware/authMiddleware");
 
 router.route("/").get(getLifeStory);
-router.route("/:lifeStory_id").put(updateLifeStory).delete(deleteLifeStory);
+router.route("/:category").put(updateLifeStory).delete(deleteLifeStory);
 module.exports = router;
