@@ -14,6 +14,7 @@ const LifeStory = () => {
   useEffect(() => {
     getLifeStory()
       .then((lifeStory) => {
+        console.log(lifeStory);
         setCurrentLifeStory(lifeStory);
         setIsLoading(false);
       })

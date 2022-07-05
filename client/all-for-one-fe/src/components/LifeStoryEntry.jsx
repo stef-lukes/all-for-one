@@ -63,7 +63,7 @@ const LifeStoryEntry = ({ setCurrentLifeStory }) => {
             name="categories"
             type="text"
             value={lifeStoryEntry.category}
-            placeholder="Enter category"
+            placeholder="Enter a category"
             onChange={handleChange}
             onBlur={handleChange}
           />
