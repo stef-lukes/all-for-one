@@ -47,10 +47,43 @@ const setUser = asyncHandler(async (req, res) => {
 
   if (user) {
     //changed status code from 201 to 200
-    res.status(200).json({ user, token: generateToken(user._id) });
+    user.token = generateToken(user._id);
+    res.status(200).json({ user });
   } else {
     res.status(400);
     throw new Error("Invalid data");
+  }
+});
+
+//@desc Authenticate a user
+//@route POST api/users/login
+//@access Public
+const loginUser = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+
+  let user = await Users.findOne({ email });
+  let passwordCheck = await bcrypt.compare(password, user.password);
+
+  if (user && passwordCheck) {
+    const token = generateToken(user._id);
+    res.json({
+      token,
+      _id: user._id,
+      name: user.name,
+      username: user.username,
+      email: user.email,
+      password: user.password,
+      isAdmin: user.isAdmin,
+      isPrincipal: user.isPrincipal,
+      relationship: user.relationship,
+      avatarUrl: user.avatarUrl,
+      hubCodes: user.hubCodes,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    });
+  } else {
+    res.status(400);
+    throw new Error("Invalid credentials");
   }
 });
 
@@ -87,24 +120,6 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 
   res.status(200).json(`User ${user.username} deleted`);
-});
-
-//@desc Authenticate a user
-//@route POST api/users/login
-//@access Public
-const loginUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
-
-  let user = await Users.findOne({ email });
-  let passwordCheck = await bcrypt.compare(password, user.password);
-
-  if (user && passwordCheck) {
-    const accessToken = jwt.sign({ user }, process.env.JWT_ACCESS_SECRET);
-    res.json({ user, token: accessToken });
-  } else {
-    res.status(400);
-    throw new Error("Invalid credentials");
-  }
 });
 
 //@desc Get user data
@@ -146,7 +161,7 @@ const inviteUser = asyncHandler(async (req, res) => {
 
 //Generate JWT
 const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
+  return jwt.sign({ id }, process.env.JWT_ACCESS_SECRET, {
     expiresIn: "15d",
   });
 };
