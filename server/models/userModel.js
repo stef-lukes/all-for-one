@@ -9,6 +9,7 @@ const userSchema = mongoose.Schema(
     username: {
       type: String,
       required: [true, "Add username"],
+      unique: true,
     },
     email: {
       type: String,
@@ -39,14 +40,21 @@ const userSchema = mongoose.Schema(
     },
     hubCodes: {
       type: [String],
-      required: [
-        false, "What hubs does this user have associations with?"
-      ]
-    }
+      required: [false, "What hubs does this user have associations with?"],
+    },
+    location: {
+      type: locationSchema,
+      required: false,
+    },
   },
   {
     timestamps: true,
   }
 );
+
+const locationSchema = mongoose.Schema({
+  lat: { type: number },
+  long: { type: number },
+});
 
 module.exports = mongoose.model("usersModel", userSchema);
