@@ -12,12 +12,24 @@ const Dashboard = () => {
   return user ? (
     <>
       <Header />
-      <Navbar />
-      <h1>Dashboard</h1>
-      <img className="avatar" src={user.user.avatar_url} alt="" />
-      <p>Hello {user.user.name}!</p>
-      <DailyLog />
-      <button>Log Out</button>
+      <main>
+        <Navbar />
+
+        <div className="intro-msg">
+          <h1>{`Hi ${user.user.name}!`}</h1>
+          <p>
+            Welcome to your <span>all for one</span> dashboard! From here you
+            can add users to your hub, edit your profile and that of the person
+            you care for.
+          </p>
+          <p>
+            Below you can see your daily log, where you can post daily notes and
+            activities to help keep track of the day.
+          </p>
+        </div>
+
+        <DailyLog />
+      </main>
     </>
   ) : (
     <Navigate to="/" state={{ from: location }} replace />
