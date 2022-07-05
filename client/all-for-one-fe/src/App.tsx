@@ -5,16 +5,19 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import { UserContext } from "./contexts/AuthProvider";
+import { HubContext } from "./contexts/HubProvider";
 import LifeStory from "./components/LifeStory";
 import FamilyTree from "./components/FamilyTree";
 import LifeStoryCategory from "./components/LifeStoryCategory";
 
 function App() {
   const [user, setUser] = useState();
+  const [hub, setHub] = useState();
 
   return (
     <Router>
       <UserContext.Provider value={{ user, setUser }}>
+        <HubContext.Provider value={{ hub, setHub }}>
         <div className="App">
           <Routes>
             {/* Public Routes */}
@@ -28,10 +31,11 @@ function App() {
             <Route
               path="/lifestory/:category"
               element={<LifeStoryCategory />}
-            />
+              />
             <Route path="/familytree" element={<FamilyTree />} />
           </Routes>
         </div>
+              </HubContext.Provider>
       </UserContext.Provider>
     </Router>
   );
