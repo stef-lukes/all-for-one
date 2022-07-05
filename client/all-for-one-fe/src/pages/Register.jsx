@@ -7,7 +7,7 @@ import bgImg from "../assets/bg-img.jpg";
 import logo from "../assets/logo-dark-portrait.svg";
 
 const Register = () => {
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const initalValues = {
@@ -22,6 +22,15 @@ const Register = () => {
 
   const [formData, setFormData] = useState(initalValues);
   const [formErrors, setFormErrors] = useState({ initalValues });
+
+  useEffect(() => {
+    const stringFromStorage = localStorage.getItem("all-for-one-user")
+    if (!user && stringFromStorage) {
+      const storedUser = JSON.parse(stringFromStorage);
+      console.log(storedUser, "<<<<< user from local storage")
+      setUser(storedUser)
+    }
+  }, [])
 
   // FROM STEF:
   // On change we update the formData values with the input values

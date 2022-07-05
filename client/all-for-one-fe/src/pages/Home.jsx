@@ -1,12 +1,24 @@
-import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { Link, Navigate } from "react-router-dom";
 import Header from "../components/Header";
-import AuthContext from "../contexts/AuthProvider";
+import AuthContext, { UserContext } from "../contexts/AuthProvider";
 import bgImg from "../assets/bg-img.jpg";
 import logo from "../assets/logo-dark-portrait.svg";
 import Login from "./Login";
 
 const Home = () => {
+
+  const {user, setUser} = useContext(UserContext);
+
+  useEffect(() => {
+    const stringFromStorage = localStorage.getItem("all-for-one-user")
+    if (!user && stringFromStorage) {
+      const storedUser = JSON.parse(stringFromStorage);
+      console.log(storedUser, "<<<<< user from local storage")
+      setUser(storedUser)
+    }
+  }, [])
+
   return (
     <main className="home-screen">
       <section className="welcome-container">

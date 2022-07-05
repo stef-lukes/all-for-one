@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import Header from "../components/Header";
 import Navbar from "../components/Navbar";
 import { UserContext } from "../contexts/AuthProvider";
@@ -7,14 +7,16 @@ import { Navigate, useLocation } from "react-router-dom";
 
 const Dashboard = () => {
   const { user, setUser } = useContext(UserContext);
-  const location = useLocation();
+  const [hasLocalUser, setHasLocalUser] = useState();
 
-if (!user) {
-  const stringFromStorage = localStorage.getItem("all-for-one-user")
-  const storedUser = JSON.parse(stringFromStorage);
-  console.log(storedUser, "<<<<< user from loca storage")
-  setUser(storedUser)
-}
+  useEffect(() => {
+    const stringFromStorage = localStorage.getItem("all-for-one-user")
+    if (!user && stringFromStorage) {
+      const storedUser = JSON.parse(stringFromStorage);
+      console.log(storedUser, "<<<<< user from local storage")
+      setUser(storedUser)
+    }
+  }, [])
 
   return user ? (
     <>

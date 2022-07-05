@@ -1,10 +1,19 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../contexts/AuthProvider";
 import logo from "../assets/logo-dark-landscape.svg";
 import profileIcon from "../assets/profile-icon-default.svg";
 
 const Header = () => {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
+
+  useEffect(() => {
+    const stringFromStorage = localStorage.getItem("all-for-one-user")
+    if (!user && stringFromStorage) {
+      const storedUser = JSON.parse(stringFromStorage);
+      setUser(storedUser)
+    }
+  }, [])
+
   return (
     <header>
       <section id="header-info">

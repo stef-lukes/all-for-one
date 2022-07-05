@@ -1,10 +1,19 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../contexts/AuthProvider";
 import DailyLogCard from "./DailyLogCard";
 import { getDailyLog } from "../utils/api";
 
 const DailyLog = () => {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
+
+  useEffect(() => {
+    const stringFromStorage = localStorage.getItem("all-for-one-user")
+    if (!user && stringFromStorage) {
+      const storedUser = JSON.parse(stringFromStorage);
+      console.log(storedUser, "<<<<< user from local storage")
+      setUser(storedUser)
+    }
+  }, [])
 
   getDailyLog().then((dailyLog) => {
     console.log(dailyLog);
