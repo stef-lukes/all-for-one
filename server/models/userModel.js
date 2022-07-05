@@ -1,5 +1,10 @@
 const mongoose = require("mongoose");
 
+const locationSchema = mongoose.Schema({
+  lat: { type: Number },
+  long: { type: Number },
+});
+
 const userSchema = mongoose.Schema(
   {
     name: {
@@ -51,10 +56,5 @@ const userSchema = mongoose.Schema(
     timestamps: true,
   }
 );
-
-const locationSchema = mongoose.Schema({
-  lat: { type: number },
-  long: { type: number },
-});
 
 module.exports = mongoose.model("usersModel", userSchema);
