@@ -13,12 +13,37 @@ const getLifeStory = asyncHandler(async (req, res) => {
 //@desc Update lifeStory
 //@route POST api/lifeStory/:lifeStory_id
 //@access Private
-const updateLifeStory = asyncHandler(async (req, res) => {
-  const lifeStory = await LifeStory.findById(req.params.lifeStory_id);
+// const updateLifeStory = asyncHandler(async (req, res) => {
+//   const lifeStory = await LifeStory.findById(req.params.lifeStory_id);
+//   console.log(lifeStory);
+//   if (!lifeStory) {
+//     res.status(400);
+//     throw new Error("Lifestory not found");
+//   }
 
-  if (!lifeStory) {
+//   // if (!req.user) {
+//   //   res.status(401);
+//   //   throw new Error("User not found");
+//   // }
+//   //Add error handling when hubcodes don't match liefStory and user
+//   const updatedLifeStory = await LifeStory.findByIdAndUpdate(
+//     req.params.lifeStory_id,
+//     req.body,
+//     {
+//       new: true,
+//     }
+//   );
+//   res.status(200).json(updatedLifeStory);
+// });
+
+//@desc Update QandA on lifeStory
+//@route PUT api/lifeStory/:category
+//@access Private
+const updateLifeStoryAnswer = asyncHandler(async (req, res) => {
+  const lifeStoryQA = await LifeStory.findById(req.params.questionAnswer.qaID);
+  if (!lifeStoryQA) {
     res.status(400);
-    throw new Error("Lifestory not found");
+    throw new Error("Lifestory question not found");
   }
 
   // if (!req.user) {
@@ -27,7 +52,7 @@ const updateLifeStory = asyncHandler(async (req, res) => {
   // }
   //Add error handling when hubcodes don't match liefStory and user
   const updatedLifeStory = await LifeStory.findByIdAndUpdate(
-    req.params.lifeStory_id,
+    req.params.questionAnswer.qaID,
     req.body,
     {
       new: true,
@@ -53,5 +78,6 @@ const deleteLifeStory = asyncHandler(async (req, res) => {
 module.exports = {
   getLifeStory,
   updateLifeStory,
+  updateLifeStoryAnswer,
   deleteLifeStory,
 };
