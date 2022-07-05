@@ -2,7 +2,6 @@ import axios from "axios";
 
 export const allForOneApi = axios.create({
   baseURL: "http://localhost:5000/api",
-  headers: { Authenticatin: "Bearer $accessToken}" },
 });
 
 export const createUser = ({
@@ -12,6 +11,7 @@ export const createUser = ({
   password,
   isAdmin,
   isPrincipal,
+  hubCode
 }: {
   email: string;
   name: string;
@@ -19,9 +19,10 @@ export const createUser = ({
   password: string;
   isAdmin: boolean;
   isPrincipal: boolean;
+  hubCode: string;
 }) => {
   return allForOneApi
-    .post("/users", { email, name, username, password, isAdmin, isPrincipal })
+    .post("/users", { email, name, username, password, isAdmin, isPrincipal, hubCode })
     .then((newUser) => {
       return newUser.data;
     });
