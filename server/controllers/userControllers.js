@@ -52,7 +52,7 @@ const setUser = asyncHandler(async (req, res) => {
     //changed status code from 201 to 200
     token = generateToken(user._id);
     user.token = token;
-    res.status(200).json( user );
+    res.status(200).json({ user });
   } else {
     res.status(400);
     throw new Error("Invalid data");
@@ -71,19 +71,21 @@ const loginUser = asyncHandler(async (req, res) => {
   if (user && passwordCheck) {
     const token = generateToken(user._id);
     res.json({
-      token,
-      _id: user._id,
-      name: user.name,
-      username: user.username,
-      email: user.email,
-      password: user.password,
-      isAdmin: user.isAdmin,
-      isPrincipal: user.isPrincipal,
-      relationship: user.relationship,
-      avatarUrl: user.avatarUrl,
-      hubCodes: user.hubCodes,
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt,
+      user: {
+        token,
+        _id: user._id,
+        name: user.name,
+        username: user.username,
+        email: user.email,
+        password: user.password,
+        isAdmin: user.isAdmin,
+        isPrincipal: user.isPrincipal,
+        relationship: user.relationship,
+        avatarUrl: user.avatarUrl,
+        hubCodes: user.hubCodes,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+      },
     });
   } else {
     res.status(400);

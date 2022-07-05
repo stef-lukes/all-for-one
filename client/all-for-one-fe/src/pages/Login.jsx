@@ -5,7 +5,7 @@ import { UserContext } from "../contexts/AuthProvider";
 import { loginUser } from "../utils/api";
 
 const Login = () => {
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
   const initialValues = { email: "", password: "" };
 

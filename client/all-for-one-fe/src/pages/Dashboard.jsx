@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Header from "../components/Header";
 import Navbar from "../components/Navbar";
 import { UserContext } from "../contexts/AuthProvider";
@@ -6,8 +6,15 @@ import DailyLog from "../components/DailyLog";
 import { Navigate, useLocation } from "react-router-dom";
 
 const Dashboard = () => {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const location = useLocation();
+
+if (!user) {
+  const stringFromStorage = localStorage.getItem("all-for-one-user")
+  const storedUser = JSON.parse(stringFromStorage);
+  console.log(storedUser, "<<<<< user from loca storage")
+  setUser(storedUser)
+}
 
   return user ? (
     <>
@@ -31,9 +38,7 @@ const Dashboard = () => {
         <DailyLog />
       </main>
     </>
-  ) : (
-    <Navigate to="/" state={{ from: location }} replace />
-  );
+  ) : null;
 };
 
 export default Dashboard;
