@@ -11,10 +11,10 @@ const DailyLog = () => {
   });
 
   return (
-    <>
-      <h1>Daily Log</h1>
+    <section className="post-wrapper">
+      <h2 className="list-intro">Lets's see what's been happening today...</h2>
       <DailyLogCard />
-    </>
+    </section>
   );
 };
 

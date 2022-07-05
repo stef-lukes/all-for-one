@@ -8,8 +8,7 @@ import Login from "./Login";
 
 const Home = () => {
   return (
-    <main className="bg-overlay">
-      <img className="bg-img" src={bgImg} alt="" />
+    <main className="home-screen">
       <section className="welcome-container">
         <img id="logo-portrait" src={logo} alt="" />
         <h1 className="page-msg">
