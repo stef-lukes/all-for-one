@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
 const Users = require("../models/userModel");
 const nodemailer = require("nodemailer");
+const dotenv = require("dotenv").config();
 
 //@desc Get users
 //@route GET api/users
@@ -29,7 +30,7 @@ const setUser = asyncHandler(async (req, res) => {
   }
 
   //Hash Password
-  const salt = await bcrypt.genSalt(10);
+  const salt = await bcrypt.genSalt(process.env.SALT | 0);
   const hashedPassword = await bcrypt.hash(password, salt);
 
   //Create User
@@ -99,7 +100,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
   if (user && passwordCheck) {
     const accessToken = jwt.sign({ user }, process.env.JWT_ACCESS_SECRET);
-    res.json({user, token: accessToken});
+    res.json({ user, token: accessToken });
   } else {
     res.status(400);
     throw new Error("Invalid credentials");
