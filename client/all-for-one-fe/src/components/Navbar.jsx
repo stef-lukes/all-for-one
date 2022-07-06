@@ -11,8 +11,8 @@ const Navbar = () => {
   const {user, setUser} = useContext(UserContext);
 
   const handleClick = () => {
-    setUser(null);
     localStorage.removeItem("all-for-one-user");
+    setUser(null);
     Navigate("/")
   }
 

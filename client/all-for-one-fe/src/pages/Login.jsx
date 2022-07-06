@@ -16,10 +16,9 @@ const Login = () => {
     const stringFromStorage = localStorage.getItem("all-for-one-user")
     if (!user && stringFromStorage) {
       const storedUser = JSON.parse(stringFromStorage);
-      console.log(storedUser, "<<<<< user from local storage")
       setUser(storedUser)
     }
-  }, [])
+  }, [user, setUser])
 
   // FROM STEF:
   // On change we update the formData values with the input values
@@ -46,7 +45,7 @@ const Login = () => {
       loginUser(formData).then((loggedInUser) => {
         setUser(loggedInUser);
         localStorage.setItem('all-for-one-user', JSON.stringify(loggedInUser));
-        navigate("/dashboard");
+        // navigate("/dashboard");
       });
     }
   };

@@ -12,7 +12,7 @@ const Header = () => {
       const storedUser = JSON.parse(stringFromStorage);
       setUser(storedUser)
     }
-  }, [])
+  }, [user, setUser])
 
   return (
     <header>
