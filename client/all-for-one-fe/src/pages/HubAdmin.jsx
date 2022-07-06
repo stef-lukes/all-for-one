@@ -11,7 +11,7 @@ import Navbar from '../components/Navbar';
 
 export default function HubAdmin() {
     const {user, setUser} = useContext(UserContext) 
-    const {hub} = useContext(HubContext)
+    const {hub, setHub} = useContext(HubContext)
 
     useEffect(() => {
         const stringFromStorage = localStorage.getItem("all-for-one-user")
@@ -20,6 +20,14 @@ export default function HubAdmin() {
           setUser(storedUser)
         }
       }, [user, setUser])
+
+      useEffect(() => {
+        const stringFromStorage = localStorage.getItem("all-for-one-hub")
+            if (!hub && stringFromStorage) {
+              const storedHub = JSON.parse(stringFromStorage);
+              setHub(storedHub)
+            }
+          }, [hub, setHub])
 
   return (
     <>

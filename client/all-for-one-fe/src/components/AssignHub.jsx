@@ -5,26 +5,18 @@ import { checkValidHubName, createHub } from '../utils/api';
 
 export default function AssignHub() {
     const {user} = useContext(UserContext);
-    const {hub, setHub} = useContext(HubContext);
+    const {setHub} = useContext(HubContext);
     const [isValidHub,setIsValidHub] = useState(false);
     const [hubName, setHubName] = useState("");
     const [hubNameCheck, setHubNameCheck] = useState("")
-
-    // useEffect(() => {
-    // const stringFromStorage = localStorage.getItem("all-for-one-hub")
-    //     if (!hub && stringFromStorage) {
-    //       const storedHub = JSON.parse(stringFromStorage);
-    //       setHub(storedHub)
-    //     }
-    //   }, [hub, setHub])
-
-     
+  
     
     const handleSubmit = (event) => {
       event.preventDefault();
       createHub({hubName, adminUser: user.user.email})
       .then((hubData) => {
       setHub(hubData)
+      localStorage.setItem("all-for-one-hub", JSON.stringify(hubData));
       });
     }
 
