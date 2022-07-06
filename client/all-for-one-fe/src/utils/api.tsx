@@ -107,3 +107,20 @@ export const editLifeStory = (
       return updatedLifeStoryAnswer.data;
     });
 };
+
+
+//Hub admin functions
+
+export const checkValidHubName = (hubName:string) => {
+  return allForOneApi.post("/hub/hubnames", {hubName}).then((hubWithName) => {
+    // returns true if hub name is ok to use
+    return hubWithName.data ? false : true
+  });
+}
+   
+export const createHub = ({hubName, adminUser}:{ hubName:string; adminUser:string}) => {
+  console.log(hubName, adminUser);
+  return allForOneApi.post("/hub", {hubName, adminUser}).then((newHub) => {
+    return newHub.data;
+  })
+}
