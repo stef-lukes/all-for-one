@@ -1,3 +1,4 @@
+const { query } = require("express");
 const asyncHandler = require("express-async-handler");
 const LifeStory = require("../models/lifeStoryModel");
 
@@ -39,27 +40,16 @@ const getLifeStory = asyncHandler(async (req, res) => {
 //@desc Update QandA on lifeStory
 //@route PUT api/lifeStory/:category
 //@access Private
-const updateLifeStoryAnswer = asyncHandler(async (req, res) => {
-  const lifeStoryQA = await LifeStory.findById(req.params.questionAnswer.qaID);
-  if (!lifeStoryQA) {
-    res.status(400);
-    throw new Error("Lifestory question not found");
-  }
-
-  // if (!req.user) {
-  //   res.status(401);
-  //   throw new Error("User not found");
-  // }
-  //Add error handling when hubcodes don't match liefStory and user
-  const updatedLifeStory = await LifeStory.findByIdAndUpdate(
-    req.params.questionAnswer.qaID,
-    req.body,
-    {
-      new: true,
-    }
-  );
+const updateLifeStoryAnswer = async (req, res) => {
+  const id = req.body._id;
+  const answer = { answer: req.body.answer };
+  const updatedLifeStory = await LifeStory.findOne({
+    question: "Who was your childhood best friend?",
+  });
+  updatedLifeStory.questionAnswer[0].answer = answer.answer;
+  const updatedAnswer = await updatedLifeStory.save();
   res.status(200).json(updatedLifeStory);
-});
+};
 
 //@desc Delete lifeStory
 //@route DELETE api/LifeStory/:lifeStory_id
