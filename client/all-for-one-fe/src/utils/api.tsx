@@ -11,7 +11,7 @@ export const createUser = ({
   password,
   isAdmin,
   isPrincipal,
-  hubCode
+  hubCode,
 }: {
   email: string;
   name: string;
@@ -22,7 +22,15 @@ export const createUser = ({
   hubCode: string;
 }) => {
   return allForOneApi
-    .post("/users", { email, name, username, password, isAdmin, isPrincipal, hubCode })
+    .post("/users", {
+      email,
+      name,
+      username,
+      password,
+      isAdmin,
+      isPrincipal,
+      hubCode,
+    })
     .then((newUser) => {
       return newUser.data;
     });
@@ -84,7 +92,6 @@ export const getLifeStory = (category: String) => {
   return allForOneApi
     .get("/lifeStory", { params: { category } })
     .then((lifeStory) => {
-      console.log(lifeStory.data, "lifeStory.data");
       return lifeStory.data;
     });
 };
@@ -93,16 +100,9 @@ export const deleteLifeStory = (lifeStory_id: string) => {
   return allForOneApi.delete(`/lifeStory/${lifeStory_id}`);
 };
 
-export const editLifeStory = (
-  qaID: string,
-  {
-    answer,
-  }: {
-    answer: string;
-  }
-) => {
+export const editLifeStory = (_id: string, answer: string) => {
   return allForOneApi
-    .put(`/lifeStory/${qaID}`, { answer })
+    .put(`/lifeStory/${_id}`, { _id, answer })
     .then((updatedLifeStoryAnswer) => {
       return updatedLifeStoryAnswer.data;
     });
