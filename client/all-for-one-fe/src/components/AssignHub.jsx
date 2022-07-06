@@ -1,4 +1,4 @@
-import {React, useContext, useState} from 'react';
+import {React, useContext, useEffect, useState} from 'react';
 import { UserContext } from '../contexts/AuthProvider';
 import { HubContext } from '../contexts/HubProvider';
 import { checkValidHubName, createHub } from '../utils/api';
@@ -9,6 +9,14 @@ export default function AssignHub() {
     const [isValidHub,setIsValidHub] = useState(false);
     const [hubName, setHubName] = useState("");
     const [hubNameCheck, setHubNameCheck] = useState("")
+
+    // useEffect(() => {
+    // const stringFromStorage = localStorage.getItem("all-for-one-hub")
+    //     if (!hub && stringFromStorage) {
+    //       const storedHub = JSON.parse(stringFromStorage);
+    //       setHub(storedHub)
+    //     }
+    //   }, [hub, setHub])
 
      
     
