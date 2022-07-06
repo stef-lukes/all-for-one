@@ -7,18 +7,17 @@ import { Link } from "react-router-dom";
 import LifeStoryCategory from "./LifeStoryCategory";
 
 const LifeStory = () => {
-  const {user, setUser} = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [currentLifeStory, setCurrentLifeStory] = useState([{}]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setError] = useState(null);
 
-  
   useEffect(() => {
-    const stringFromStorage = localStorage.getItem("all-for-one-user")
+    const stringFromStorage = localStorage.getItem("all-for-one-user");
     if (!user && stringFromStorage) {
       const storedUser = JSON.parse(stringFromStorage);
-      console.log(storedUser, "<<<<< user from local storage")
-      setUser(storedUser)
+      console.log(storedUser, "<<<<< user from local storage");
+      setUser(storedUser);
     }
     getLifeStory()
       .then((lifeStory) => {
@@ -46,17 +45,17 @@ const LifeStory = () => {
       <ul>
         {currentLifeStory.map((lifeStory) => {
           console.log(lifeStory, "???");
+          const passLifeStory = { ...lifeStory };
           return (
             <>
               <Link
-                lifestory={lifeStory}
+                state={passLifeStory}
                 key={lifeStory._id}
                 className="story-link"
                 to={`/lifestory/${lifeStory.category}`}
               >
                 {lifeStory.category}
               </Link>
-              <LifeStoryCategory lifeStory={lifeStory} />
             </>
           );
         })}
