@@ -7,6 +7,7 @@ const {
   getMe,
   inviteUser,
 } = require("../controllers/hubController");
+const {protect} = require("../middleware/authMiddleware")
 
 router.route("/").post(setHub);
 router.route("/:user_id").put(updateUser).delete(deleteUser);

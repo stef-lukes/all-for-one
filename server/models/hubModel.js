@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const userHubsSchema = mongoose.Schema({
-  hubName: {String, unique: true},
+  hubName: { type: String, unique: true },
   hubUsers: [String],
 });
 
