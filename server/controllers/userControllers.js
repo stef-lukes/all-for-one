@@ -103,9 +103,5 @@ const generateToken = (id) => {
 module.exports = {
   getUsers,
   setUser,
-  updateUser,
-  deleteUser,
   loginUser,
-  getMe,
-  inviteUser,
 };
