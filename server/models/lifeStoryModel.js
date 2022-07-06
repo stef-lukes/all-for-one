@@ -1,9 +1,12 @@
 const mongoose = require("mongoose");
 
-const questionAnswerSchema = mongoose.Schema({
-  question: { type: String },
-  answer: { type: String },
-});
+const questionAnswerSchema = mongoose.Schema(
+  {
+    question: { type: String },
+    answer: { type: String },
+  },
+  { _id: true }
+);
 
 const lifeStorySchema = mongoose.Schema(
   {

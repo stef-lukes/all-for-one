@@ -1,15 +1,44 @@
+import { useState } from "react";
+import { useLocation } from "react-router-dom";
+import Navbar from "./Navbar";
+import Header from "./Header";
+import QuestionAnswer from "./QuestionAnswer";
+
 const LifeStoryCategory = (lifestory) => {
-  console.log(lifestory.lifeStory.questionAnswer, "<--- QA");
-  const questionsArray = lifestory.lifeStory.questionAnswer;
+  // set state answer : id, answer
+  // use text editor to update state
+  // use that in update function
+  const location = useLocation();
+  console.log(location.state);
+
+  // const [qaID, setQaID] = useState(null);
+
+  // const updateAnswer = (event) => {
+  //   const { id, value } = event.target;
+  //   setAnswer({ ...currAnswer, [id]: value });
+  // };
+
+  // const handleUpdate = (event) => {
+  //   event.preventDefault();
+
+  //   editLifeStory(currAnswer).then((loggedInUser) => {
+  //     setUser(loggedInUser);
+  //     localStorage.setItem("all-for-one-user", JSON.stringify(loggedInUser));
+  //     navigate("/dashboard");
+  //   });
+  // };
+
+  const questionsArray = location.state.questionAnswer;
   return (
     <>
+      <Header />
+      <Navbar />
+      <h1>{location.state.category}</h1>
       <ul>
         {questionsArray.map((qaObject) => {
           return (
             <>
-              <li>
-                <h3>{qaObject.question}</h3>
-              </li>
+              <QuestionAnswer key={qaObject.qaID} qaObject={qaObject} />
             </>
           );
         })}

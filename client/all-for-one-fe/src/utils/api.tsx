@@ -94,22 +94,16 @@ export const deleteLifeStory = (lifeStory_id: string) => {
 };
 
 export const editLifeStory = (
-  lifeStory_id: string,
+  qaID: string,
   {
-    user,
-    heading,
-    bodyText,
-    categories,
+    answer,
   }: {
-    user: string;
-    heading: string;
-    bodyText: string;
-    categories: string;
+    answer: string;
   }
 ) => {
   return allForOneApi
-    .put(`/lifeStory/${lifeStory_id}`, { user, heading, bodyText, categories })
-    .then((updatedLifeStory) => {
-      return updatedLifeStory.data;
+    .put(`/lifeStory/${qaID}`, { answer })
+    .then((updatedLifeStoryAnswer) => {
+      return updatedLifeStoryAnswer.data;
     });
 };
