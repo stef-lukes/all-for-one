@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
 import Header from "./Header";
@@ -10,13 +9,6 @@ const LifeStoryCategory = (lifestory) => {
   // use that in update function
   const location = useLocation();
   console.log(location.state);
-
-  // const [qaID, setQaID] = useState(null);
-
-  // const updateAnswer = (event) => {
-  //   const { id, value } = event.target;
-  //   setAnswer({ ...currAnswer, [id]: value });
-  // };
 
   // const handleUpdate = (event) => {
   //   event.preventDefault();
