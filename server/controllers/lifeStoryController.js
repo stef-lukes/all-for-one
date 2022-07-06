@@ -77,7 +77,6 @@ const deleteLifeStory = asyncHandler(async (req, res) => {
 
 module.exports = {
   getLifeStory,
-  updateLifeStory,
   updateLifeStoryAnswer,
   deleteLifeStory,
 };
