@@ -1,15 +1,33 @@
 const asyncHandler = require("express-async-handler");
 const UserHub = require("../models/hubModel");
 
+//@desc check hub name is already in database
+//@route POST api/hub/hubnames
+//@access Private
+const getHubNames = asyncHandler(async (req, res) => {
+  const { hubName } = req.body;
+  const searchedHubName = await UserHub.findOne({ hubName });
+  try {
+    res.status(200).send(searchedHubName);
+  } catch (err) {
+    res.json(err);
+  }
+});
+
 //@desc create a new hub
 //@route POST api/hub
 //@access Private
 const setHub = asyncHandler(async (req, res) => {
   const { adminUser, hubName } = req.body;
-  UserHub.create({
+  const createdHub = await UserHub.create({
     hubName,
     hubUsers: [adminUser],
   });
+  try {
+    res.status(201).send(createdHub);
+  } catch (err) {
+    res.json(err);
+  }
 });
 
 //@desc Update user
@@ -84,4 +102,11 @@ const inviteUser = asyncHandler(async (req, res) => {
   res.send("email sent successfully");
 });
 
-module.exports = { setHub, updateUser, deleteUser, getMe, inviteUser };
+module.exports = {
+  getHubNames,
+  setHub,
+  updateUser,
+  deleteUser,
+  getMe,
+  inviteUser,
+};
