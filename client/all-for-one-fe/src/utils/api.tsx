@@ -75,7 +75,6 @@ export const createDailyLogEntry = ({
       user,
       name,
       avatarUrl,
-
       title,
       body,
       categories,
@@ -124,20 +123,20 @@ export const checkValidHubName = (hubName: string) => {
     // returns true if hub name is ok to use
     return hubWithName.data ? false : true;
   });
-}
-   
-export const createHub = (
-  {hubName, 
-    adminUser, 
-    hubPrincipal, 
-    }:
-  { hubName:string; 
-    adminUser:string; 
-    hubPrincipal:string; 
-    }) => {
+};
+
+export const createHub = ({
+  hubName,
+  adminUser,
+  hubPrincipal,
+}: {
+  hubName: string;
+  adminUser: string;
+  hubPrincipal: string;
+}) => {
   return allForOneApi
-  .post("/hub", {hubName, adminUser, hubPrincipal})
-  .then((newHub) => {
-    return newHub.data;
-  });
+    .post("/hub", { hubName, adminUser, hubPrincipal })
+    .then((newHub) => {
+      return newHub.data;
+    });
 };

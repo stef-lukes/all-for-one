@@ -30,6 +30,10 @@ const dailyLogSchema = mongoose.Schema(
       type: String,
       required: false,
     },
+    time: {
+      type: String,
+      required: false,
+    },
     order: {
       type: Number,
       required: false,

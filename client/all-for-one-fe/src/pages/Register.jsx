@@ -24,13 +24,13 @@ const Register = () => {
   const [formErrors, setFormErrors] = useState({ initalValues });
 
   useEffect(() => {
-    const stringFromStorage = localStorage.getItem("all-for-one-user")
+    const stringFromStorage = localStorage.getItem("all-for-one-user");
     if (!user && stringFromStorage) {
       const storedUser = JSON.parse(stringFromStorage);
-      console.log(storedUser, "<<<<< user from local storage")
-      setUser(storedUser)
+      console.log(storedUser, "<<<<< user from local storage");
+      setUser(storedUser);
     }
-  }, [])
+  }, []);
 
   // FROM STEF:
   // On change we update the formData values with the input values
@@ -95,7 +95,6 @@ const Register = () => {
 
   return (
     <main className="bg-overlay">
-      <img className="bg-img" src={bgImg} alt="" />
       <section className="welcome-container">
         <img id="logo-portrait" src={logo} alt="" />
         <h1 className="page-msg">
