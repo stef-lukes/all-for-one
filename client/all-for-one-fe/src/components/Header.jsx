@@ -7,12 +7,12 @@ const Header = () => {
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    const stringFromStorage = localStorage.getItem("all-for-one-user")
+    const stringFromStorage = localStorage.getItem("all-for-one-user");
     if (!user && stringFromStorage) {
       const storedUser = JSON.parse(stringFromStorage);
-      setUser(storedUser)
+      setUser(storedUser);
     }
-  }, [user, setUser])
+  }, [user, setUser]);
 
 
 

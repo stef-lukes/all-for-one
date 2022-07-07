@@ -31,22 +31,29 @@ const DailyLogCard = () => {
 
   return (
     <section>
-      <ul>
+      <ul className="daily-card-list">
         {currentDailyLog.map((logEntry) => {
           return (
-            <article className="card-wrapper">
-              <img src={smiley} alt="" className="smiley" />
+            <li key={logEntry._id} className="card-wrapper relative">
+              <img src={logEntry.avatarUrl} alt="" className="smiley" />
               <img src={cardAccent} alt="" className="card-accent" />
-              <li key={logEntry.body} className="post-card">
-                <h3>{logEntry.title}</h3>
-                <p>{logEntry.body}</p>
-                <p>{logEntry.categories}</p>
+              <article className="post-card">
+                <div className="log-post-info flex">
+                  <h3 className="blue right-m10">{logEntry.name}: </h3>
+                  <h4 className="red no-margin">{logEntry.title}</h4>
+                </div>
+
+                <p className="dark-grey no-margin">{logEntry.body}</p>
+                <p className="small thin grey absolute-b">
+                  <span className="bold-medium">tags:</span>{" "}
+                  {logEntry.categories}
+                </p>
                 <DeleteDailyLogCard
                   logEntry={logEntry}
                   setCurrentDailyLog={setCurrentDailyLog}
                 />
-              </li>
-            </article>
+              </article>
+            </li>
           );
         })}
       </ul>

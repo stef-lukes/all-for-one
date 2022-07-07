@@ -42,24 +42,34 @@ const LifeStory = () => {
     <>
       <Header />
       <Navbar />
-      <ul>
-        {currentLifeStory.map((lifeStory) => {
-          console.log(lifeStory, "???");
-          const passLifeStory = { ...lifeStory };
-          return (
-            <>
-              <Link
-                state={passLifeStory}
-                key={lifeStory._id}
-                className="story-link"
-                to={`/lifestory/${lifeStory.category}`}
-              >
-                {lifeStory.category}
-              </Link>
-            </>
-          );
-        })}
-      </ul>
+      <main>
+        <article className="intro-msg width-80">
+          <h1>Life Story</h1>
+          <p>
+            Welcome to the <span className="bold blue">Life Story</span>{" "}
+            section, where you can build a map of your loved one's memories.
+          </p>
+        </article>
+        <ul>
+          <h2 className="list-intro">Please select a category:</h2>
+          {currentLifeStory.map((lifeStory) => {
+            console.log(lifeStory, "???");
+            const passLifeStory = { ...lifeStory };
+            return (
+              <>
+                <Link
+                  state={passLifeStory}
+                  key={lifeStory._id}
+                  className="story-link white bold"
+                  to={`/lifestory/${lifeStory.category}`}
+                >
+                  {lifeStory.category}
+                </Link>
+              </>
+            );
+          })}
+        </ul>
+      </main>
     </>
   );
 };

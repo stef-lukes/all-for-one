@@ -23,20 +23,24 @@ const QuestionAnswer = ({ qaObject }) => {
   };
 
   return (
-    <>
-      <h3>{qaObject.question}</h3>
+    <article className="qa-wrap">
+      <h3 className="white bold no-margin list-intro">{qaObject.question}</h3>
       <EditTextarea
+        className="edit-text"
         defaultValue={qaObject.answer}
         id="answer"
         value={currAnswer.answer}
         placeholder="Enter your answer here."
         onChange={updateAnswer}
       />
-      <p></p>
-      <button type="submit" onClick={handleUpdate}>
-        Add your answer!
+      <button
+        className="log-reg-btn post-form-btn"
+        type="submit"
+        onClick={handleUpdate}
+      >
+        Update your answer!
       </button>
-    </>
+    </article>
   );
 };
 

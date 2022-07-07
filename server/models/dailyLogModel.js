@@ -10,6 +10,14 @@ const dailyLogSchema = mongoose.Schema(
       type: String,
       required: [true, "Post title"],
     },
+    name: {
+      type: String,
+      required: [true, "Add your name"],
+    },
+    avatarUrl: {
+      type: String,
+      required: [true, "Post owner's avatar"],
+    },
     body: {
       type: String,
       required: [true, "Add bodyText"],

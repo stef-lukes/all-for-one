@@ -55,11 +55,17 @@ export const loginUser = ({
 
 export const createDailyLogEntry = ({
   user,
+  name,
+  avatarUrl,
+
   title,
   body,
   categories,
 }: {
   user: string;
+  name: string;
+  avatarUrl: string;
+
   title: string;
   body: string;
   categories: string;
@@ -67,6 +73,9 @@ export const createDailyLogEntry = ({
   return allForOneApi
     .post("/dailyLog", {
       user,
+      name,
+      avatarUrl,
+
       title,
       body,
       categories,
@@ -108,13 +117,12 @@ export const editLifeStory = (_id: string, answer: string) => {
     });
 };
 
-
 //Hub admin functions
 
-export const checkValidHubName = (hubName:string) => {
-  return allForOneApi.post("/hub/hubnames", {hubName}).then((hubWithName) => {
+export const checkValidHubName = (hubName: string) => {
+  return allForOneApi.post("/hub/hubnames", { hubName }).then((hubWithName) => {
     // returns true if hub name is ok to use
-    return hubWithName.data ? false : true
+    return hubWithName.data ? false : true;
   });
 }
    
@@ -131,5 +139,5 @@ export const createHub = (
   .post("/hub", {hubName, adminUser, hubPrincipal})
   .then((newHub) => {
     return newHub.data;
-  })
-}
+  });
+};

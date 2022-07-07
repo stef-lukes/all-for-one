@@ -8,6 +8,8 @@ const DailyLogForm = ({ setCurrentDailyLog }) => {
   const initialValues = {
     user: user.user._id,
     name: user.user.name,
+    avatarUrl: user.user.avatarUrl,
+    colour: user.user.colour,
     title: "",
     body: "",
     categories: "",
@@ -19,7 +21,7 @@ const DailyLogForm = ({ setCurrentDailyLog }) => {
     event.preventDefault();
     createDailyLogEntry(logEntryData).then((newEntry) => {
       setCurrentDailyLog((currLogEntry) => {
-        return [newEntry, ...currLogEntry];
+        return [...currLogEntry, newEntry];
       });
     });
     setLogEntryData(initialValues);
@@ -32,17 +34,20 @@ const DailyLogForm = ({ setCurrentDailyLog }) => {
     });
   };
 
+  console.log(logEntryData);
   return (
-    <>
-      <h1>Add an entry to your Daily Log</h1>
-      <form onSubmit={handleSubmit}>
+    <section className="post-form-wrapper">
+      <h2 className="white post-form-heading">
+        Add an entry to your Daily Log
+      </h2>
+      <form className="post-form" onSubmit={handleSubmit}>
         <label aria-label="activity name">
           <input
             id="title"
             name="title"
             type="text"
             value={logEntryData.title}
-            placeholder="Enter activity name"
+            placeholder="Enter a post title"
             onChange={handleChange}
             onBlur={handleChange}
           />
@@ -53,7 +58,7 @@ const DailyLogForm = ({ setCurrentDailyLog }) => {
             name="body"
             type="text"
             value={logEntryData.body}
-            placeholder="Enter activity details"
+            placeholder="Add more detail"
             onChange={handleChange}
             onBlur={handleChange}
           />
@@ -64,14 +69,14 @@ const DailyLogForm = ({ setCurrentDailyLog }) => {
             name="categories"
             type="text"
             value={logEntryData.categories}
-            placeholder="Enter category"
+            placeholder="Tags"
             onChange={handleChange}
             onBlur={handleChange}
           />
         </label>
-        <button>Add entry</button>
+        <button className="log-reg-btn post-form-btn">Add entry</button>
       </form>
-    </>
+    </section>
   );
 };
 
