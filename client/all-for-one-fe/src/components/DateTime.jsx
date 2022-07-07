@@ -1,15 +1,4 @@
-// import Moment from "moment";
-
-// let dateAndTime = Moment().format("dddd, MMMM Do YYYY, h:mm a");
-
-// const DateTime = () => {
-//   return <h1 className="date-time">{dateAndTime}</h1>;
-// };
-
-// export default DateTime;
-
 import { useState, useEffect } from "react";
-import { loginUser } from "../utils/api";
 
 const DateTime = () => {
   const [dateState, setDateState] = useState(new Date());

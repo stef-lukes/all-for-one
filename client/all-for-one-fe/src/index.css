@@ -190,6 +190,9 @@ nav {
   color: white;
   font-size: 12px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .nav-icon {
@@ -386,11 +389,12 @@ main {
 ========================================*/
 .home-screen {
   width: 100% !important;
+  margin: auto !important;
 }
 .welcome-container {
   background-color: #17293a;
   width: 350px;
-  margin: auto;
+  margin: auto !important;
   position: relative;
   top: 20vh;
   padding: 20px 30px;
