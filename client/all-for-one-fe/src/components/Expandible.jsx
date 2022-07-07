@@ -6,7 +6,7 @@ export default function Expandible({ children }) {
   return (
     <>
       {showChildren ? children : null}
-      <button onClick={() => setShowChildren((prevShow) => !prevShow)}>
+      <button className="log-reg-btn post-form-btn" onClick={() => setShowChildren((prevShow) => !prevShow)}>
         {showChildren ? "Hide" : "View"}
       </button>
     </>
