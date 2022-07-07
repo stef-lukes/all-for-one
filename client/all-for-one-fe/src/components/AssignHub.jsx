@@ -36,10 +36,10 @@ export default function AssignHub() {
       };
 
   return (
-    <>
-    <h1>Create a new hub</h1>
-      <form className="log-reg-form" onSubmit={handleSubmit}>
-          <label aria-label="hub-name"> What do you want to call your hub?
+    <section className="post-form-wrapper">
+    <h2 className="white post-form-heading">Create a new hub</h2>
+      <form className="post-form" onSubmit={handleSubmit}>
+          <label aria-label="hub-name" className="white"> What do you want to call your hub?
           <input
             className="form-control"
             id="hub-name"
@@ -49,7 +49,7 @@ export default function AssignHub() {
           />
           <p>{hubNameCheck}</p>
         </label>
-        <label aria-label="hub-principal"> Who is the subject of care for this hub?
+        <label aria-label="hub-principal" className="white"> Who is the subject of care for this hub?
           <input
             className="form-control"
             id="hub-principal"
@@ -58,8 +58,8 @@ export default function AssignHub() {
             onChange={event => setHubPrincipal(event.target.value)}
           />
         </label>
-        <button disabled={Boolean(hubNameCheck)} className="log-reg-btn">Register Hub</button>
+        <button disabled={Boolean(hubNameCheck)} className="log-reg-btn post-form-btn">Register Hub</button>
       </form>
-    </>
+    </section>
   )
 }

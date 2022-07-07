@@ -141,3 +141,10 @@ export const createHub = (
     return newHub.data;
   });
 };
+
+export const sendInviteEmail = (
+  {hubAdmin, hubInvitedTo, hubPrincipal, inviteeName, emailToInvite, additionalMessage}:{hubAdmin:string;hubInvitedTo:string;hubPrincipal:string;inviteeName:string;emailToInvite:string;additionalMessage:string}) => {
+return allForOneApi.post("/hub/addusers", {hubAdmin, hubInvitedTo, hubPrincipal,inviteeName, emailToInvite, additionalMessage}).then((emailSent) => {
+  return emailSent.data;
+})
+}
