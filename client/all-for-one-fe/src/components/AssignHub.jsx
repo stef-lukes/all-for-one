@@ -9,19 +9,17 @@ export default function AssignHub() {
     const [isValidHub,setIsValidHub] = useState(false);
     const [hubName, setHubName] = useState("");
     const [hubNameCheck, setHubNameCheck] = useState("")
-    const [hubPrincipal, setHubPrincipal] = useState("")
-    const [principalPhoto, setPrincipalPhoto] = useState()
-  
+    const [hubPrincipal, setHubPrincipal] = useState("")  
     
     const handleSubmit = (event) => {
       event.preventDefault();
-      createHub({hubName, adminUser: user.user.email, hubPrincipal, principalPhoto})
+      createHub({hubName, adminUser: user.user.email, hubPrincipal})
       .then((hubData) => {
       setHub(hubData)
       localStorage.setItem("all-for-one-hub", JSON.stringify(hubData));
       }).catch((err) => {
         if (err) {
-          setHubNameCheck(`Hub creation failed`)
+          setHubNameCheck(`Hub creation failed. Please try again`)
         console.log(err)}
       })
     }
