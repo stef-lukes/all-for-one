@@ -14,8 +14,6 @@ const Header = () => {
     }
   }, [user, setUser]);
 
-
-
   return (
     <header>
       <section id="header-info">
@@ -24,7 +22,9 @@ const Header = () => {
           <p>{user ? user.user.name : ""}</p>
           <img
             className="avatar"
-            src={user && user.user.avatar_url? user.user.avatar_url : profileIcon}
+            src={
+              user && user.user.avatarUrl ? user.user.avatarUrl : profileIcon
+            }
             alt=""
           />
         </div>
