@@ -94,7 +94,7 @@ const Register = () => {
   };
 
   return (
-    <main className="bg-overlay">
+    <main className="home-screen">
       <section className="welcome-container">
         <img id="logo-portrait" src={logo} alt="" />
         <h1 className="page-msg">
