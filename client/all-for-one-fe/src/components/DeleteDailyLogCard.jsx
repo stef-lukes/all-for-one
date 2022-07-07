@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { UserContext } from "../contexts/AuthProvider";
 import { deleteDailyLog } from "../utils/api";
+import binIcon from "../assets/bin.svg";
 
 const DeleteDailyLogCard = ({ logEntry, setCurrentDailyLog }) => {
   const { user } = useContext(UserContext);
@@ -19,7 +20,11 @@ const DeleteDailyLogCard = ({ logEntry, setCurrentDailyLog }) => {
   };
 
   if (user.user._id === logEntry.user || user.user.isAdmin === true) {
-    return <button onClick={handleClick}>Delete</button>;
+    return (
+      <button className="delete-btn absolute-br" onClick={handleClick}>
+        <img src={binIcon} alt="" />
+      </button>
+    );
   }
 };
 

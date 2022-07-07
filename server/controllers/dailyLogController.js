@@ -21,6 +21,8 @@ const setDailyLogEntry = asyncHandler(async (req, res) => {
   }
   const dailyLogEntry = await DailyLog.create({
     user: req.body.user,
+    name: req.body.name,
+    avatarUrl: req.body.avatarUrl,
     title: req.body.title,
     body: req.body.body,
     categories: req.body.categories,
