@@ -4,6 +4,7 @@ import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../contexts/AuthProvider";
 import { getLifeStory } from "../utils/api";
 import { Link } from "react-router-dom";
+import BeatLoader from "react-spinners/BeatLoader";
 import LifeStoryCategory from "./LifeStoryCategory";
 
 const LifeStory = () => {
@@ -35,7 +36,16 @@ const LifeStory = () => {
   }
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="spinner">
+        <BeatLoader
+          className="inner-spinner"
+          loading={isLoading}
+          size={50}
+          color="#fd6167"
+        />
+      </div>
+    );
   }
 
   return (

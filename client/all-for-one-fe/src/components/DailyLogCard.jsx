@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getDailyLog } from "../utils/api";
 import DailyLogForm from "./DailyLogForm";
 import DeleteDailyLogCard from "./DeleteDailyLogCard";
+import BeatLoader from "react-spinners/BeatLoader";
 import cardAccent from "../assets/card-accent.svg";
 import smiley from "../assets/smiley.svg";
 
@@ -26,7 +27,16 @@ const DailyLogCard = () => {
   }
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="spinner">
+        <BeatLoader
+          className="inner-spinner"
+          loading={isLoading}
+          size={50}
+          color="#fd6167"
+        />
+      </div>
+    );
   }
 
   return (
@@ -48,6 +58,7 @@ const DailyLogCard = () => {
                   <span className="bold-medium">tags:</span>{" "}
                   {logEntry.categories}
                 </p>
+                <p className="post-time">{logEntry.time}</p>
                 <DeleteDailyLogCard
                   logEntry={logEntry}
                   setCurrentDailyLog={setCurrentDailyLog}

@@ -18,12 +18,13 @@ const DateTime = () => {
   }, []);
   return (
     <div className="date-time">
+      <h1>📅</h1>
       <h1 className="bold day mr20">
-        {" "}
         {dateState.toLocaleDateString("en-GB", {
           weekday: "long",
         })}
       </h1>
+      <h1>:</h1>
       <h1 className="bold date mr20">
         {dateState.toLocaleDateString("en-GB", {
           day: "numeric",
@@ -31,6 +32,7 @@ const DateTime = () => {
           year: "numeric",
         })}
       </h1>
+      <h1>:</h1>
       <h1 className="bold time mr20">
         {dateState.toLocaleString("en-GB", {
           hour: "numeric",

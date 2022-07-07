@@ -9,7 +9,6 @@ const DailyLogForm = ({ setCurrentDailyLog }) => {
     user: user.user._id,
     name: user.user.name,
     avatarUrl: user.user.avatarUrl,
-    colour: user.user.colour,
     title: "",
     body: "",
     categories: "",

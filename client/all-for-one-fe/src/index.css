@@ -106,6 +106,16 @@ ul {
   margin-right: 20px;
 }
 
+.spinner {
+  display: flex;
+  margin: 100px auto;
+  justify-content: center;
+}
+.inner-spinner {
+  margin: auto;
+  display: block;
+}
+
 /* Header 
 ========================================*/
 
@@ -114,6 +124,7 @@ header {
   position: fixed;
   width: 100%;
   top: 0;
+  z-index: 100;
 }
 
 #header-info {
@@ -166,9 +177,10 @@ nav {
   padding: 5px;
   border-radius: 7px;
   position: fixed;
-  right: 15px;
+  right: 3vw;
   top: 100px;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.421);
+  z-index: 50;
 }
 
 .nav-link {
@@ -186,11 +198,6 @@ nav {
 /* Main Content 
 ========================================*/
 .date-time {
-  background: linear-gradient(
-    -60deg,
-    rgba(255, 160, 62, 1) 0%,
-    rgba(253, 78, 116, 1) 100%
-  );
   padding: 10px;
   border-radius: 10px;
   color: #17293a;
@@ -198,6 +205,8 @@ nav {
 }
 .date-time h1 {
   margin: 0 20px 0 0;
+  font-weight: 600;
+  font-size: 18px;
 }
 .date {
   color: #ffffb6;
@@ -209,6 +218,7 @@ main {
   padding-top: 70px;
   width: 75%;
   margin-left: 20px;
+  max-width: 800px;
 }
 
 .intro-msg {
@@ -230,7 +240,7 @@ main {
 .list-intro {
   color: white;
   position: relative;
-  margin: 50px 0;
+  margin: 40px 0 20px 0;
 }
 
 .list-intro::before {
@@ -294,6 +304,13 @@ main {
   height: 100%;
   box-sizing: border-box;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.421);
+}
+.post-time {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-right: 20px;
+  color: #8a765e;
 }
 
 .delete-btn {
@@ -470,4 +487,19 @@ textarea:focus {
 
 textarea {
   height: 100px;
+}
+
+/* Media Query Breakpoints
+========================================*/
+
+@media only screen and (min-width: 1100px) {
+  main {
+    margin: auto;
+  }
+  nav {
+    right: 7vw;
+  }
+  .date-time h1 {
+    font-size: 30px;
+  }
 }

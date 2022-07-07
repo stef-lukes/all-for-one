@@ -4,9 +4,6 @@ import Header from "./Header";
 import QuestionAnswer from "./QuestionAnswer";
 
 const LifeStoryCategory = (lifestory) => {
-  // set state answer : id, answer
-  // use text editor to update state
-  // use that in update function
   const location = useLocation();
   console.log(location.state);
 
