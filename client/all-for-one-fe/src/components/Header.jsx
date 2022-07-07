@@ -7,12 +7,12 @@ const Header = () => {
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    const stringFromStorage = localStorage.getItem("all-for-one-user")
+    const stringFromStorage = localStorage.getItem("all-for-one-user");
     if (!user && stringFromStorage) {
       const storedUser = JSON.parse(stringFromStorage);
-      setUser(storedUser)
+      setUser(storedUser);
     }
-  }, [user, setUser])
+  }, [user, setUser]);
 
   return (
     <header>
@@ -22,7 +22,7 @@ const Header = () => {
           <p>{user.user.name}</p>
           <img
             className="avatar"
-            src={user.user.avatar_url ? user.user.avatar_url : profileIcon}
+            src={user.user.avatarUrl ? user.user.avatarUrl : profileIcon}
             alt=""
           />
         </div>

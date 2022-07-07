@@ -25,16 +25,26 @@ const LifeStoryCategory = (lifestory) => {
     <>
       <Header />
       <Navbar />
-      <h1>{location.state.category}</h1>
-      <ul>
-        {questionsArray.map((qaObject) => {
-          return (
-            <>
-              <QuestionAnswer key={qaObject.qaID} qaObject={qaObject} />
-            </>
-          );
-        })}
-      </ul>
+      <main>
+        <article className="intro-msg">
+          <h1>{location.state.category}</h1>
+          <p>
+            Answer the question prompts below about{" "}
+            <span className="bold blue">{location.state.category}</span> to
+            prompt memories and meaningful discusssion which you can record and
+            collate.
+          </p>
+        </article>
+        <ul>
+          {questionsArray.map((qaObject) => {
+            return (
+              <>
+                <QuestionAnswer key={qaObject.qaID} qaObject={qaObject} />
+              </>
+            );
+          })}
+        </ul>
+      </main>
     </>
   );
 };
