@@ -14,15 +14,17 @@ const Header = () => {
     }
   }, [user, setUser]);
 
+
+
   return (
     <header>
       <section id="header-info">
         <img id="header-logo" src={logo} alt="" />
         <div id="user">
-          <p>{user.user.name}</p>
+          <p>{user ? user.user.name : ""}</p>
           <img
             className="avatar"
-            src={user.user.avatarUrl ? user.user.avatarUrl : profileIcon}
+            src={user && user.user.avatar_url? user.user.avatar_url : profileIcon}
             alt=""
           />
         </div>

@@ -1,5 +1,8 @@
 const asyncHandler = require("express-async-handler");
 const UserHub = require("../models/hubModel");
+const multer = require("multer");
+const { v4: uuidv4 } = require("uuid");
+const path = require("path");
 
 //@desc check hub name is already in database
 //@route POST api/hub/hubnames
@@ -18,10 +21,11 @@ const getHubNames = asyncHandler(async (req, res) => {
 //@route POST api/hub
 //@access Private
 const setHub = asyncHandler(async (req, res) => {
-  const { adminUser, hubName } = req.body;
+  const { adminUser, hubName, hubPrincipal } = req.body;
   const createdHub = await UserHub.create({
     hubName,
     hubUsers: [adminUser],
+    hubPrincipal,
   });
   try {
     res.status(201).send(createdHub);

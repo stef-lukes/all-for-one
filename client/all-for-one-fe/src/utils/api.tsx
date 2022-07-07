@@ -124,17 +124,20 @@ export const checkValidHubName = (hubName: string) => {
     // returns true if hub name is ok to use
     return hubWithName.data ? false : true;
   });
-};
-
-export const createHub = ({
-  hubName,
-  adminUser,
-}: {
-  hubName: string;
-  adminUser: string;
-}) => {
-  console.log(hubName, adminUser);
-  return allForOneApi.post("/hub", { hubName, adminUser }).then((newHub) => {
+}
+   
+export const createHub = (
+  {hubName, 
+    adminUser, 
+    hubPrincipal, 
+    }:
+  { hubName:string; 
+    adminUser:string; 
+    hubPrincipal:string; 
+    }) => {
+  return allForOneApi
+  .post("/hub", {hubName, adminUser, hubPrincipal})
+  .then((newHub) => {
     return newHub.data;
   });
 };

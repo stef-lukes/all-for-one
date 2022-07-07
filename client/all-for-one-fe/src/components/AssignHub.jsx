@@ -5,27 +5,25 @@ import { checkValidHubName, createHub } from '../utils/api';
 
 export default function AssignHub() {
     const {user} = useContext(UserContext);
-    const {hub, setHub} = useContext(HubContext);
+    const {setHub} = useContext(HubContext);
     const [isValidHub,setIsValidHub] = useState(false);
     const [hubName, setHubName] = useState("");
     const [hubNameCheck, setHubNameCheck] = useState("")
-
-    // useEffect(() => {
-    // const stringFromStorage = localStorage.getItem("all-for-one-hub")
-    //     if (!hub && stringFromStorage) {
-    //       const storedHub = JSON.parse(stringFromStorage);
-    //       setHub(storedHub)
-    //     }
-    //   }, [hub, setHub])
-
-     
+    const [hubPrincipal, setHubPrincipal] = useState("")
+    const [principalPhoto, setPrincipalPhoto] = useState()
+  
     
     const handleSubmit = (event) => {
       event.preventDefault();
-      createHub({hubName, adminUser: user.user.email})
+      createHub({hubName, adminUser: user.user.email, hubPrincipal, principalPhoto})
       .then((hubData) => {
       setHub(hubData)
-      });
+      localStorage.setItem("all-for-one-hub", JSON.stringify(hubData));
+      }).catch((err) => {
+        if (err) {
+          setHubNameCheck(`Hub creation failed`)
+        console.log(err)}
+      })
     }
 
     const updateHubName = (event) => {
@@ -41,18 +39,28 @@ export default function AssignHub() {
 
   return (
     <>
+    <h1>Create a new hub</h1>
       <form className="log-reg-form" onSubmit={handleSubmit}>
           <label aria-label="hub-name"> What do you want to call your hub?
           <input
             className="form-control"
             id="hub-name"
             value={hubName}
-            placeholder="Enter hubcode"
+            placeholder="Enter hub name"
             onChange={updateHubName}
           />
           <p>{hubNameCheck}</p>
         </label>
-        <button className="log-reg-btn">Register Hub</button>
+        <label aria-label="hub-principal"> Who is the subject of care for this hub?
+          <input
+            className="form-control"
+            id="hub-principal"
+            value={hubPrincipal}
+            placeholder="Who're we building this hub around?"
+            onChange={event => setHubPrincipal(event.target.value)}
+          />
+        </label>
+        <button disabled={Boolean(hubNameCheck)} className="log-reg-btn">Register Hub</button>
       </form>
     </>
   )

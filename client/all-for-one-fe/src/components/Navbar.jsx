@@ -6,13 +6,17 @@ import logout from "../assets/logout.svg";
 import { Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../contexts/AuthProvider";
+import { HubContext } from "../contexts/HubProvider";
 
 const Navbar = () => {
-  const {user, setUser} = useContext(UserContext);
+  const {setUser} = useContext(UserContext);
+  const {setHub} = useContext(HubContext);
 
   const handleClick = () => {
     localStorage.removeItem("all-for-one-user");
+    localStorage.removeItem("all-for-one-hub");
     setUser(null);
+    setHub(null);
     Navigate("/")
   }
 
