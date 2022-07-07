@@ -3,8 +3,6 @@ import { useState } from "react";
 import { editLifeStory } from "../utils/api";
 
 const QuestionAnswer = ({ qaObject }) => {
-  console.log(qaObject);
-
   const [currAnswer, setCurrAnswer] = useState({
     qaID: qaObject._id,
     answer: qaObject.answer,
