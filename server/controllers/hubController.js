@@ -74,7 +74,7 @@ const inviteUser = asyncHandler(async (req, res, next) => {
     `, // plain text body
     html: `<p><b>Hi ${inviteeName},</b></p>
     <p>${hubPrincipal} has a new care hub to help them keep up-to-date with loved ones. They are keen for you to join them there.</p>
-    <p>To register your account and join the hub, go to the <a href="http://localhost:3000/login" target="_blank">all for one invite confirmation</a> page and login in with your password</p>
+    <p>To register your account and join the hub, go to the <a href="http://localhost:3000" target="_blank">all for one invite confirmation</a> page and login in with your password</p>
     <p>Your one-time password:<b> ${password} </b></p>
     <p>If you have any further questions, please contact ${hubPrincipal}'s carer at <a href="mailto:${hubAdmin}">${hubAdmin}</a>
     <p>We look forward to you joining us there,</p>
@@ -130,6 +130,18 @@ const setInvitedUser = asyncHandler(async (req, res) => {
   }
 });
 
+//@desc Get all users in hub
+//@route POST api/hub/users
+//@access private
+const getUsers = asyncHandler(async (req, res) => {
+  const { hubName } = req.body;
+  const currentHub = await UserHub.find({ hubName });
+  const usersInHub = await Users.find({
+    email: { $in: currentHub[0].hubUsers },
+  });
+  res.status(200).json(usersInHub);
+});
+
 //@desc Update user
 //@route PUT api/users/:user_id
 //@access Private
@@ -180,4 +192,5 @@ module.exports = {
   getMe,
   inviteUser,
   setInvitedUser,
+  getUsers,
 };
