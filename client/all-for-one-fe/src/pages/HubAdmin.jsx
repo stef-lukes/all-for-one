@@ -14,28 +14,26 @@ export default function HubAdmin() {
     const {hub, setHub} = useContext(HubContext)
 
     useEffect(() => {
-        const stringFromStorage = localStorage.getItem("all-for-one-user")
-        if (!user && stringFromStorage) {
-          const storedUser = JSON.parse(stringFromStorage);
+        const stringUserFromStorage = localStorage.getItem("all-for-one-user")
+        if (!user && stringUserFromStorage) {
+          const storedUser = JSON.parse(stringUserFromStorage);
           setUser(storedUser)
         }
-      }, [user, setUser])
-
-      useEffect(() => {
-        const stringFromStorage = localStorage.getItem("all-for-one-hub")
-            if (!hub && stringFromStorage) {
-              const storedHub = JSON.parse(stringFromStorage);
+        const stringHubFromStorage = localStorage.getItem("all-for-one-hub")
+            if (!hub && stringHubFromStorage) {
+              const storedHub = JSON.parse(stringHubFromStorage);
               setHub(storedHub)
             }
-          }, [hub, setHub])
+      }, [user, hub, setUser, setHub])
 
   return (
     <>
+    <Header />
       <main>
         <Navbar />
-        {!hub ? <AssignHub/> : null }
+        {!hub ? <AssignHub/> : <h1>{hub.hubPrincipal}'s Hub: {hub.hubName}</h1> }
         <InviteUsers/>
-        <UserManagement/>
+        {/* <UserManagement/> */}
     </main>
     </>
   )
