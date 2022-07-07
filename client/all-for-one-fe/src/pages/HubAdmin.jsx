@@ -32,8 +32,8 @@ export default function HubAdmin() {
       <main>
         <Navbar />
         {!hub ? <AssignHub/> : <h1>{hub.hubPrincipal}'s Hub: {hub.hubName}</h1> }
-        <InviteUsers/>
-        {/* <UserManagement/> */}
+        {!hub ? null : <InviteUsers/>}
+        {!hub ? null : <UserManagement hubName={hub.hubName}/>}
     </main>
     </>
   )

@@ -147,3 +147,9 @@ return allForOneApi.post("/hub/addusers", {hubAdmin, hubInvitedTo, hubPrincipal,
   return emailSent.data;
 })
 }
+
+export const getUsers = (hubName:string) => {
+  return allForOneApi.post("/hub/users", {hubName}).then((users) => {
+    return users.data;
+  });
+};
